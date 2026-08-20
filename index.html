@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2C1810">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kasih & Setia">
+<meta name="description" content="Kisah nyata perjalanan iman keluarga bersama Lala dan Jojo — dua pejuang ginjal, dalam kasih dan setia yang tak berkesudahan.">
+<title>Kasih dan Setia — Sebuah Memoar Iman</title>
+
+<!-- PWA Manifest inline -->
+<script>
+const manifest = {
+  name: "Kasih dan Setia",
+  short_name: "Kasih & Setia",
+  description: "Memoar Iman Keluarga",
+  start_url: ".",
+  display: "standalone",
+  background_color: "#F5F0E8",
+  theme_color: "#2C1810",
+  icons: [{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232C1810'/><text y='72' x='50' text-anchor='middle' font-size='60' fill='%23C9A96E'>✟</text></svg>",sizes:"192x192",type:"image/svg+xml"}]
+};
+const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+const url = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest'; link.href = url;
+document.head.appendChild(link);
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+/* ══════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════ */
+:root {
+  --cream:       #F5F0E8;
+  --warm-white:  #FAF7F2;
+  --parchment:   #EDE5D5;
+  --gold:        #C9A96E;
+  --gold-light:  #E8D5A3;
+  --gold-dark:   #8B6914;
+  --brown:       #5C3D2E;
+  --brown-light: #8B6347;
+  --ink:         #2C1810;
+  --ink-soft:    #4A3728;
+  --red-soft:    #8B3A3A;
+  --blue-soft:   #2A4A6B;
+  --shadow:      rgba(44,24,16,0.15);
+  --nav-h:       60px;
+  --max-prose:   680px;
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+body {
+  font-family:'Lora',Georgia,serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ══════════════════════════════════════════
+   READING PROGRESS BAR
+══════════════════════════════════════════ */
+#progress-bar {
+  position:fixed;top:0;left:0;z-index:200;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));
+  transition:width .1s linear;
+  pointer-events:none;
+}
+
+/* ══════════════════════════════════════════
+   NAV — MOBILE-FIRST HEADER
+══════════════════════════════════════════ */
+.nav {
+  position:fixed;top:0;left:0;right:0;z-index:150;
+  height:var(--nav-h);
+  background:rgba(28,14,6,0.97);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,169,110,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;
+  transform:translateY(-100%);
+  transition:transform .3s ease;
+  padding-top:env(safe-area-inset-top);
+}
+.nav.show{transform:translateY(0)}
+
+.nav-brand {
+  display:flex;align-items:center;gap:10px;flex:1;min-width:0;
+}
+.nav-cross{font-size:18px;color:var(--gold);flex-shrink:0}
+.nav-title-wrap{min-width:0}
+.nav-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(201,169,110,0.6);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+
+.nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+
+/* PDF Button */
+.btn-pdf {
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:6px;
+  background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+  color:#1a0e07;font-family:'Cormorant Garamond',serif;
+  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;border:none;
+  transition:opacity .2s,transform .1s;
+  white-space:nowrap;
+}
+.btn-pdf:hover{opacity:.9}
+.btn-pdf:active{transform:scale(.97)}
+.btn-pdf svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+
+/* Hamburger */
+.btn-menu {
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:38px;height:38px;padding:7px;
+  background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.2);
+  border-radius:6px;cursor:pointer;flex-shrink:0;
+  transition:background .2s;
+}
+.btn-menu:hover{background:rgba(201,169,110,0.2)}
+.btn-menu span{display:block;width:100%;height:1.5px;background:var(--gold);border-radius:2px;transition:transform .3s,opacity .3s}
+.btn-menu.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.btn-menu.open span:nth-child(2){opacity:0}
+.btn-menu.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── DRAWER MENU ── */
+.nav-drawer {
+  position:fixed;top:0;right:0;bottom:0;z-index:140;
+  width:min(300px,85vw);
+  background:rgba(22,10,4,0.98);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-left:1px solid rgba(201,169,110,0.15);
+  transform:translateX(110%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;
+  padding:calc(var(--nav-h) + 16px) 0 40px;
+  -webkit-overflow-scrolling:touch;
+}
+.nav-drawer.open{transform:translateX(0)}
+.drawer-overlay {
+  position:fixed;inset:0;z-index:130;
+  background:rgba(0,0,0,0);
+  pointer-events:none;
+  transition:background .35s;
+}
+.drawer-overlay.open{background:rgba(0,0,0,0.5);pointer-events:auto}
+
+.drawer-section{padding:8px 0;border-bottom:1px solid rgba(201,169,110,0.1)}
+.drawer-section:last-child{border-bottom:none}
+.drawer-label{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4);padding:8px 24px 4px}
+.drawer-link {
+  display:flex;align-items:center;gap:12px;
+  padding:11px 24px;
+  font-family:'Lora',serif;font-size:14px;color:rgba(201,169,110,0.8);
+  transition:background .15s,color .15s;
+  cursor:pointer;
+}
+.drawer-link:hover,.drawer-link:active{background:rgba(201,169,110,0.08);color:var(--gold)}
+.drawer-link-num{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(201,169,110,0.4);min-width:32px}
+
+/* Desktop chapters in nav (hidden on mobile) */
+.nav-chapters{display:none}
+
+/* ── CHAPTER DROPDOWN NAV (desktop) ── */
+.nav-chapter-menu{display:none;position:relative}
+.nav-chapter-trigger{
+  display:flex;align-items:center;gap:7px;
+  padding:7px 14px;border-radius:6px;
+  border:1px solid rgba(201,169,110,0.22);
+  background:rgba(201,169,110,0.07);
+  color:var(--gold-light);
+  font-family:'Cormorant Garamond',serif;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:background .2s,border-color .2s;
+  white-space:nowrap;user-select:none;
+}
+.nav-chapter-trigger:hover{background:rgba(201,169,110,0.14);border-color:rgba(201,169,110,0.4)}
+.nav-chapter-trigger svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:2;transition:transform .25s;flex-shrink:0}
+.nav-chapter-menu.open .nav-chapter-trigger svg{transform:rotate(180deg)}
+
+.nav-chapter-dropdown{
+  position:absolute;top:calc(100% + 10px);right:0;
+  min-width:260px;
+  background:rgba(18,8,2,0.98);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(201,169,110,0.18);
+  border-radius:10px;
+  overflow:hidden;
+  opacity:0;pointer-events:none;
+  transform:translateY(-6px);
+  transition:opacity .2s,transform .2s;
+  box-shadow:0 12px 40px rgba(0,0,0,0.5);
+  z-index:200;
+}
+.nav-chapter-menu.open .nav-chapter-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+.dropdown-header{
+  padding:10px 16px 8px;
+  font-family:'Cormorant Garamond',serif;font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;
+  color:rgba(201,169,110,0.35);
+  border-bottom:1px solid rgba(201,169,110,0.1);
+}
+.dropdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(201,169,110,0.08)}
+.dropdown-item{
+  display:flex;flex-direction:column;gap:2px;
+  padding:11px 14px;
+  background:rgba(18,8,2,0.98);
+  color:rgba(201,169,110,0.7);
+  font-family:'Lora',serif;font-size:13px;
+  text-decoration:none;
+  transition:background .15s,color .15s;
+  cursor:pointer;
+}
+.dropdown-item:hover{background:rgba(201,169,110,0.1);color:var(--gold)}
+.dropdown-item.active{color:var(--gold);background:rgba(201,169,110,0.12)}
+.di-num{font-family:'Cormorant Garamond',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.35);margin-bottom:1px}
+.dropdown-item.active .di-num{color:var(--gold-dark)}
+
+/* active dot in trigger */
+.nav-ch-active-label{
+  font-family:'Cormorant Garamond',serif;font-size:12px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold-light);max-width:150px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+@media(min-width:900px){
+  .nav-chapter-menu{display:block}
+  .btn-menu{display:none}
+  .nav-drawer{display:none}
+}
+
+/* ══════════════════════════════════════════
+   COVER
+══════════════════════════════════════════ */
+.cover {
+  min-height:100svh;
+  background:linear-gradient(160deg,#1a0e07 0%,#2C1810 45%,#3D2415 75%,#1a0e07 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:60px 24px 40px;
+  text-align:center;
+}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(201,169,110,.16) 0%,transparent 70%);pointer-events:none}
+.cover-cross{font-size:36px;color:var(--gold);margin-bottom:20px;opacity:.9}
+.cover-rule{width:120px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 18px}
+.cover-eyebrow{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:6px;color:var(--gold-light);text-transform:uppercase;margin-bottom:18px;opacity:.8}
+.cover-title{font-family:'Playfair Display',serif;font-size:clamp(48px,13vw,90px);color:var(--gold);line-height:1;font-weight:700;text-shadow:0 2px 40px rgba(201,169,110,.25)}
+.cover-and{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,6vw,40px);color:var(--gold-light);margin:4px 0}
+.cover-photo-area {
+  width:100%;max-width:340px;height:200px;
+  border:1px solid rgba(201,169,110,.3);border-radius:10px;
+  background:rgba(255,255,255,.04);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;overflow:hidden;margin:28px auto;
+  transition:border-color .3s;
+}
+.cover-photo-area:hover{border-color:rgba(201,169,110,.6)}
+.cover-photo-area img{width:100%;height:100%;object-fit:cover}
+.cover-ph-icon{font-size:28px;opacity:.3}
+.cover-ph-text{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);opacity:.5}
+.cover-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,4vw,18px);color:#C8B99A;max-width:420px;line-height:1.7;margin:0 auto 32px}
+.cover-cta{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;opacity:.7;transition:opacity .3s;color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase}
+.cover-cta:hover{opacity:1}
+.cover-arrow{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+
+/* ══════════════════════════════════════════
+   CONTENT WRAPPER
+══════════════════════════════════════════ */
+#content{padding-top:0}
+
+/* ══════════════════════════════════════════
+   TABLE OF CONTENTS
+══════════════════════════════════════════ */
+.toc-section{max-width:var(--max-prose);margin:0 auto;padding:60px 20px 40px}
+.section-label{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-dark);text-align:center;margin-bottom:10px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,38px);color:var(--brown);text-align:center;margin-bottom:14px;font-weight:700}
+.section-rule{width:70px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 40px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-link{display:flex;align-items:baseline;gap:12px;padding:12px 16px;border-radius:8px;transition:background .2s,transform .15s;color:inherit}
+.toc-link:hover{background:rgba(201,169,110,.1);transform:translateX(4px)}
+.toc-n{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold-dark);letter-spacing:2px;min-width:72px;flex-shrink:0}
+.toc-t{font-family:'Lora',serif;font-size:15px;color:var(--ink-soft);flex:1}
+.toc-s{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--brown-light);margin-top:2px}
+.toc-dots{flex:0.5;border-bottom:1px dotted rgba(201,169,110,.35);margin-bottom:4px;min-width:20px}
+
+/* ══════════════════════════════════════════
+   METANOIA INTRO
+══════════════════════════════════════════ */
+.metanoia-intro{max-width:var(--max-prose);margin:0 auto 0;padding:0 20px 60px}
+.metanoia-box{background:linear-gradient(135deg,#FAF7F0,#F0E8D5);border:1px solid rgba(201,169,110,.28);border-radius:12px;padding:32px 28px;text-align:center}
+.metanoia-box h2{font-family:'Playfair Display',serif;font-size:30px;font-style:italic;color:var(--brown);margin-bottom:10px}
+.metanoia-box p{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink-soft);line-height:1.75;max-width:480px;margin:0 auto}
+
+/* ══════════════════════════════════════════
+   MAIN / CHAPTERS
+══════════════════════════════════════════ */
+main{max-width:var(--max-prose);margin:0 auto;padding:0 20px 80px}
+
+.chapter{padding:52px 0 36px;border-top:1px solid rgba(201,169,110,.25)}
+.chapter:first-of-type{border-top:none}
+
+.chapter-num{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:8px}
+.chapter-title{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,36px);color:var(--brown);font-weight:700;line-height:1.2;margin-bottom:12px}
+.chapter-title em{font-style:italic;color:var(--red-soft)}
+.chapter-tagline{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--brown-light);line-height:1.6;padding-left:14px;border-left:3px solid var(--gold);margin-bottom:32px}
+
+.ornament{display:flex;align-items:center;gap:10px;margin-bottom:32px}
+.ornament-line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ornament-line.r{background:linear-gradient(270deg,var(--gold),transparent)}
+.ornament-star{font-size:16px;color:var(--gold)}
+
+/* Prose */
+.prose{font-family:'Lora',serif;font-size:clamp(15px,2.5vw,17px);line-height:1.85;color:var(--ink-soft);margin-bottom:22px}
+.prose strong{color:var(--brown);font-weight:600}
+.prose.dropcap::first-letter{font-family:'Playfair Display',serif;font-size:clamp(56px,10vw,70px);font-weight:700;color:var(--gold-dark);float:left;line-height:.8;margin:6px 10px 0 0}
+
+/* Pull quote */
+.pull-quote{margin:32px 0;padding:24px 28px 24px 24px;background:linear-gradient(135deg,#FAF3E8,#F0E8D5);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;position:relative}
+.pull-quote::before{content:'\201C';font-family:'Playfair Display',serif;font-size:80px;color:var(--gold);opacity:.2;position:absolute;top:-8px;left:10px;line-height:1}
+.pull-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(15px,2.5vw,18px);color:var(--brown);line-height:1.6;position:relative;z-index:1}
+.pull-quote cite{display:block;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold-dark);letter-spacing:2px}
+
+/* Scripture */
+.scripture{margin:32px 0;padding:24px 28px;background:linear-gradient(135deg,#1a0e07,#2C1810);border-radius:10px;text-align:center;position:relative;overflow:hidden}
+.scripture::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,169,110,.1) 0%,transparent 70%)}
+.scripture p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,2.5vw,17px);color:var(--gold-light);line-height:1.7;position:relative;z-index:1}
+.scripture cite{display:block;margin-top:8px;font-family:'Lora',serif;font-size:12px;color:var(--gold);letter-spacing:1px;position:relative;z-index:1}
+
+/* Scene separator */
+.scene-sep{text-align:center;margin:28px 0;color:var(--gold);font-size:18px;letter-spacing:8px;opacity:.45}
+
+/* Narrative inset */
+.narrative{margin:24px 0;padding:20px 24px;background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.22);border-radius:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,2.5vw,16px);color:var(--brown);line-height:1.75}
+
+/* Note box */
+.note{margin:24px 0;padding:18px 22px;background:rgba(42,74,107,.06);border-left:4px solid var(--blue-soft);border-radius:0 8px 8px 0;font-family:'Lora',serif;font-size:14px;color:var(--ink-soft);line-height:1.7}
+.note strong{color:var(--blue-soft)}
+
+/* ── TIMELINE ── */
+.timeline{margin:32px 0;padding-left:0;position:relative}
+.timeline::before{content:'';position:absolute;left:16px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,169,110,.15))}
+.tl-item{padding-left:48px;padding-bottom:24px;position:relative}
+.tl-dot{position:absolute;left:8px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--cream);box-shadow:0 0 0 2px var(--gold)}
+.tl-date{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:3px}
+.tl-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--brown);margin-bottom:3px}
+.tl-text{font-family:'Lora',serif;font-size:14px;color:var(--ink-soft);line-height:1.65}
+
+/* ── MILESTONE GRID ── */
+.milestone-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:28px 0}
+.milestone{background:linear-gradient(135deg,var(--warm-white),var(--parchment));border:1px solid rgba(201,169,110,.3);border-radius:8px;padding:14px;text-align:center}
+.ms-date{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:5px}
+.ms-label{font-family:'Lora',serif;font-size:13px;font-weight:500;color:var(--brown);line-height:1.4}
+
+/* ── PHOTO GRID ── */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:28px 0}
+.photo-slot{border:1px dashed rgba(201,169,110,.4);border-radius:10px;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,var(--parchment),#e8dcc8);min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;transition:border-color .25s,box-shadow .25s;-webkit-tap-highlight-color:transparent}
+.photo-slot:hover,.photo-slot:active{border-color:var(--gold);box-shadow:0 4px 14px var(--shadow)}
+.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px}
+.ph-overlay{position:absolute;inset:0;background:rgba(44,24,16,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:9px}
+.photo-slot:hover .ph-overlay{opacity:1}
+.ph-overlay span{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase}
+.ph-icon{font-size:26px;opacity:.3}
+.ph-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--brown-light);text-align:center;padding:0 10px;line-height:1.35}
+.ph-caption{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--brown-light);font-style:italic;padding:6px 10px;border-top:1px solid rgba(201,169,110,.2);width:100%;position:absolute;bottom:0;background:rgba(250,247,242,.92);text-align:center}
+
+/* ── YOUTUBE EMBED ── */
+.yt-wrap{margin:28px 0;background:linear-gradient(135deg,var(--warm-white),var(--parchment));border:1px solid rgba(201,169,110,.35);border-radius:12px;overflow:hidden;box-shadow:0 3px 16px var(--shadow)}
+.yt-wrap iframe{width:100%;display:block;border:none;aspect-ratio:16/9}
+.yt-ph{min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:24px;background:linear-gradient(135deg,rgba(201,169,110,.06),rgba(201,169,110,.1));transition:background .25s;-webkit-tap-highlight-color:transparent}
+.yt-ph:hover,.yt-ph:active{background:linear-gradient(135deg,rgba(201,169,110,.1),rgba(201,169,110,.16))}
+.yt-play{font-size:40px;opacity:.3}
+.yt-lbl{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dark)}
+.yt-hint{font-family:'Lora',serif;font-size:13px;color:var(--brown-light);font-style:italic}
+.yt-cap{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--brown-light);font-style:italic;padding:10px 16px;border-top:1px solid rgba(201,169,110,.2);text-align:center}
+
+/* ── QR / VIDEO CARD ── */
+.qr-card{margin:28px 0;background:linear-gradient(135deg,var(--warm-white),var(--parchment));border:1px solid rgba(201,169,110,.35);border-radius:12px;padding:24px;display:flex;gap:20px;align-items:center;box-shadow:0 3px 16px var(--shadow);transition:transform .25s,box-shadow .25s}
+.qr-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px var(--shadow)}
+.qr-box{flex-shrink:0;width:96px;height:96px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(201,169,110,.25);overflow:hidden}
+.qr-box canvas,.qr-box img{width:88px!important;height:88px!important}
+.qr-info{flex:1;min-width:0}
+.qr-label{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:5px}
+.qr-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--brown);margin-bottom:4px;line-height:1.3}
+.qr-desc{font-family:'Lora',serif;font-size:12px;color:var(--ink-soft);line-height:1.5;margin-bottom:8px}
+.qr-url{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--gold-dark);word-break:break-all;opacity:.8}
+
+.vis-break{text-align:center;padding:16px 0 24px;font-size:22px;opacity:.25;letter-spacing:8px;color:var(--gold-dark)}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{background:linear-gradient(160deg,#1a0e07,#2C1810);color:var(--gold-light);text-align:center;padding:52px 24px;padding-bottom:calc(52px + env(safe-area-inset-bottom))}
+.footer-cross{font-size:28px;margin-bottom:12px;opacity:.8}
+.footer-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:8px;font-style:italic}
+.footer-verse{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#C8B99A;max-width:380px;margin:0 auto 20px;line-height:1.7}
+.footer-site{font-family:'Lora',serif;font-size:12px;color:var(--gold-dark)}
+.footer-site a{color:var(--gold)}
+
+/* ══════════════════════════════════════════
+   FAB PDF BUTTON (mobile floating)
+══════════════════════════════════════════ */
+.fab-pdf {
+  position:fixed;bottom:24px;right:20px;z-index:120;
+  display:flex;align-items:center;gap:7px;
+  padding:12px 18px;border-radius:50px;
+  background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+  color:#1a0e07;font-family:'Cormorant Garamond',serif;
+  font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;border:none;
+  box-shadow:0 4px 20px rgba(44,24,16,.35);
+  transition:transform .2s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;
+  bottom:calc(24px + env(safe-area-inset-bottom));
+}
+.fab-pdf:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(44,24,16,.4)}
+.fab-pdf:active{transform:scale(.96)}
+.fab-pdf svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+@media(min-width:900px){.fab-pdf{display:none}}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes pulse{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.08)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(28,14,6,.95);color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:14px;padding:12px 22px;border-radius:50px;border:1px solid rgba(201,169,110,.2);opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;z-index:300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══════════════════════════════════════════
+   PRINT / PDF STYLES
+══════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════
+   ADMIN PANEL
+══════════════════════════════════════════ */
+.adm-login{position:fixed;inset:0;z-index:9000;background:rgba(10,4,1,0.97);display:none;align-items:center;justify-content:center;padding:24px}
+.adm-login.show{display:flex}
+.adm-login-box{background:linear-gradient(160deg,#1a0e07,#2C1810);border:1px solid rgba(201,169,110,0.25);border-radius:16px;padding:40px 32px;max-width:340px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.6)}
+.adm-login-cross{font-size:28px;color:var(--gold);margin-bottom:16px}
+.adm-login-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:6px;font-style:italic}
+.adm-login-sub{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(201,169,110,0.45);letter-spacing:4px;text-transform:uppercase;margin-bottom:28px}
+.adm-input{width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;color:var(--gold-light);font-family:'Lora',serif;font-size:15px;outline:none;transition:border-color .2s;margin-bottom:12px;-webkit-appearance:none}
+.adm-input:focus{border-color:rgba(201,169,110,0.5)}
+.adm-input::placeholder{color:rgba(201,169,110,0.3)}
+.adm-btn-login{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#1a0e07;font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:none;border-radius:8px;cursor:pointer;margin-top:4px;transition:opacity .2s}
+.adm-btn-login:hover{opacity:.9}
+.adm-login-err{font-family:'Lora',serif;font-size:13px;color:#E07070;margin-top:10px;min-height:18px}
+.adm-login-cancel{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(201,169,110,0.4);cursor:pointer;letter-spacing:2px;text-transform:uppercase;transition:color .2s;display:block}
+.adm-login-cancel:hover{color:var(--gold)}
+.adm-panel{position:fixed;top:0;right:0;bottom:0;z-index:8000;width:min(430px,100vw);background:linear-gradient(180deg,#140a04,#1e0f06);border-left:1px solid rgba(201,169,110,0.18);transform:translateX(110%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;box-shadow:-8px 0 40px rgba(0,0,0,0.5)}
+.adm-panel.show{transform:translateX(0)}
+.adm-overlay{position:fixed;inset:0;z-index:7900;background:rgba(0,0,0,0);pointer-events:none;transition:background .35s}
+.adm-overlay.show{background:rgba(0,0,0,0.5);pointer-events:auto}
+.adm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(201,169,110,0.12);flex-shrink:0}
+.adm-head-brand{display:flex;align-items:center;gap:10px}
+.adm-head-icon{font-size:20px;color:var(--gold)}
+.adm-head-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);font-style:italic;line-height:1.2}
+.adm-head-sub{font-family:'Cormorant Garamond',serif;font-size:10px;color:rgba(201,169,110,0.35);letter-spacing:3px;text-transform:uppercase}
+.adm-head-right{display:flex;align-items:center;gap:8px}
+.adm-badge{display:inline-flex;align-items:center;padding:3px 8px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.18);border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:10px;color:var(--gold-dark);letter-spacing:1px}
+.adm-close-btn{width:34px;height:34px;border-radius:7px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);color:rgba(201,169,110,0.5);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.adm-close-btn:hover{background:rgba(201,169,110,0.14);color:var(--gold)}
+.adm-tabs{display:flex;border-bottom:1px solid rgba(201,169,110,0.1);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.adm-tabs::-webkit-scrollbar{display:none}
+.adm-tab{padding:10px 14px;font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.4);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0}
+.adm-tab:hover{color:rgba(201,169,110,0.7)}
+.adm-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.adm-body{flex:1;overflow-y:auto;padding:18px;scrollbar-width:thin;scrollbar-color:rgba(201,169,110,0.12) transparent}
+.adm-body::-webkit-scrollbar{width:4px}
+.adm-body::-webkit-scrollbar-thumb{background:rgba(201,169,110,0.14);border-radius:4px}
+.adm-pane{display:none}
+.adm-pane.active{display:block}
+.adm-section{margin-bottom:22px}
+.adm-section-title{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.32);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(201,169,110,0.07)}
+.adm-label{font-family:'Lora',serif;font-size:12px;color:rgba(201,169,110,0.52);margin-bottom:5px;display:block}
+.adm-field{width:100%;padding:9px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.15);border-radius:7px;color:var(--gold-light);font-family:'Lora',serif;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:10px;-webkit-appearance:none}
+.adm-field:focus{border-color:rgba(201,169,110,0.42)}
+.adm-field::placeholder{color:rgba(201,169,110,0.2)}
+textarea.adm-field{resize:vertical;min-height:80px;line-height:1.6}
+select.adm-field option{background:#1a0e07;color:var(--gold-light)}
+.adm-field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.adm-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:7px;font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.adm-btn.primary{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#1a0e07}
+.adm-btn.primary:hover{opacity:.9}
+.adm-btn.secondary{background:rgba(201,169,110,0.07);border:1px solid rgba(201,169,110,0.18);color:rgba(201,169,110,0.7)}
+.adm-btn.secondary:hover{background:rgba(201,169,110,0.13);color:var(--gold)}
+.adm-btn.danger{background:rgba(180,60,60,0.08);border:1px solid rgba(180,60,60,0.22);color:#E07070}
+.adm-btn.danger:hover{background:rgba(180,60,60,0.18)}
+.adm-btn.full{width:100%}
+.adm-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.adm-ch-list{display:flex;flex-direction:column;gap:3px;margin-bottom:12px}
+.adm-ch-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.09);border-radius:7px;cursor:pointer;transition:background .15s}
+.adm-ch-item:hover{background:rgba(201,169,110,0.07)}
+.adm-ch-item-left{display:flex;align-items:center;gap:10px}
+.adm-ch-num{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:2px;color:rgba(201,169,110,0.32);min-width:34px}
+.adm-ch-name{font-family:'Lora',serif;font-size:13px;color:rgba(201,169,110,0.72)}
+.adm-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.06)}
+.adm-toggle-row:last-child{border-bottom:none}
+.adm-toggle-info .adm-toggle-label{font-family:'Lora',serif;font-size:13px;color:rgba(201,169,110,0.7)}
+.adm-toggle-info .adm-toggle-sub{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(201,169,110,0.3);margin-top:2px}
+.adm-switch{position:relative;width:40px;height:22px;flex-shrink:0}
+.adm-switch input{opacity:0;width:0;height:0;position:absolute}
+.adm-switch-slider{position:absolute;inset:0;background:rgba(255,255,255,0.06);border-radius:22px;cursor:pointer;transition:.3s;border:1px solid rgba(201,169,110,0.16)}
+.adm-switch-slider::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:rgba(201,169,110,0.32);border-radius:50%;transition:.3s}
+.adm-switch input:checked+.adm-switch-slider{background:rgba(201,169,110,0.18);border-color:rgba(201,169,110,0.42)}
+.adm-switch input:checked+.adm-switch-slider::before{transform:translateX(18px);background:var(--gold)}
+.adm-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.adm-stat{background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.09);border-radius:8px;padding:12px;text-align:center}
+.adm-stat-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);font-weight:700}
+.adm-stat-lbl{font-family:'Cormorant Garamond',serif;font-size:9px;color:rgba(201,169,110,0.32);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.adm-editable{
+  outline:2px dashed rgba(201,169,110,0.45)!important;
+  outline-offset:3px!important;
+  border-radius:3px;
+  cursor:text!important;
+  transition:background .15s, outline-color .15s;
+  min-height:1em;
+  display:block;
+}
+.adm-editable:hover{
+  outline-color:rgba(201,169,110,0.75)!important;
+  background:rgba(201,169,110,0.05)!important;
+}
+.adm-editable:focus{
+  outline-color:var(--gold)!important;
+  background:rgba(201,169,110,0.08)!important;
+  outline-style:solid!important;
+}
+/* Edit bar stays above FAB */
+.adm-edit-bar.show{transform:translateY(0);padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+/* Keep panel visible but slightly transparent in edit mode so user can read behind it */
+.adm-panel.edit-active{opacity:0.92}
+.adm-edit-bar{position:fixed;bottom:0;left:0;right:0;z-index:7500;background:rgba(10,4,1,0.96);border-top:1px solid rgba(201,169,110,0.16);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;transform:translateY(100%);transition:transform .3s;backdrop-filter:blur(10px)}
+.adm-edit-bar.show{transform:translateY(0)}
+.adm-edit-bar-label{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+.adm-edit-bar-hint{font-family:'Lora',serif;font-size:11px;color:rgba(201,169,110,0.32);font-style:italic}
+.adm-media-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.09);border-radius:8px;padding:12px;margin-bottom:10px}
+.adm-media-thumb{width:100%;height:75px;border-radius:6px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;margin-bottom:10px;overflow:hidden;font-size:22px;opacity:.3}
+.adm-media-thumb img{width:100%;height:100%;object-fit:cover;opacity:1;border-radius:6px}
+.adm-upload-zone{border:1.5px dashed rgba(201,169,110,0.22);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px}
+.adm-upload-zone:hover,.adm-upload-zone.dragover{border-color:var(--gold);background:rgba(201,169,110,0.05)}
+.adm-upload-icon{font-size:24px;margin-bottom:6px;opacity:.38}
+.adm-upload-text{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(201,169,110,0.42)}
+.adm-upload-text strong{color:var(--gold-dark)}
+.adm-info-box{background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.12);border-radius:7px;padding:11px;margin-bottom:12px;font-family:'Lora',serif;font-size:12px;color:rgba(201,169,110,0.45);line-height:1.6}
+.adm-info-box strong{color:rgba(201,169,110,0.7)}
+.adm-log{background:rgba(0,0,0,0.35);border-radius:6px;padding:10px;font-family:monospace;font-size:11px;color:rgba(201,169,110,0.4);max-height:110px;overflow-y:auto;margin-top:8px;line-height:1.6}
+.adm-divider{height:1px;background:rgba(201,169,110,0.07);margin:14px 0}
+@media print{.adm-login,.adm-panel,.adm-overlay,.adm-edit-bar{display:none!important}}
+
+@media print {
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  #progress-bar,.nav,.fab-pdf,.nav-drawer,.drawer-overlay,.cover-cta,.yt-ph,.ph-overlay,.btn-menu{display:none!important}
+  body{background:#fff;color:#1a0e07;font-size:12pt}
+  .cover{min-height:auto;padding:60pt 40pt;page-break-after:always;break-after:page}
+  .cover-title{font-size:60pt}
+  .cover-and{font-size:28pt}
+  .cover-photo-area{height:160pt;border:1pt solid rgba(201,169,110,.4)}
+  .toc-section{padding:30pt 40pt;page-break-after:always;break-after:page}
+  .chapter{padding:20pt 0;break-inside:avoid-column;page-break-before:auto}
+  .chapter-title{font-size:22pt}
+  .prose{font-size:11pt;line-height:1.7}
+  .pull-quote{padding:14pt 20pt;break-inside:avoid}
+  .pull-quote p{font-size:13pt}
+  .scripture{padding:16pt 22pt;break-inside:avoid;background:#1a0e07!important}
+  .scripture p{font-size:12pt;color:var(--gold-light)!important}
+  .timeline{break-inside:avoid}
+  .milestone-grid{break-inside:avoid}
+  .photo-grid{gap:8pt}
+  .photo-slot{min-height:100pt;border:1pt solid rgba(201,169,110,.4)}
+  .photo-slot .ph-overlay{display:none}
+  .narrative{break-inside:avoid;padding:12pt 16pt}
+  .yt-wrap{break-inside:avoid}
+  .yt-wrap iframe{display:none}
+  .yt-ph{min-height:60pt}
+  .yt-ph .yt-hint{display:none}
+  .yt-lbl::after{content:' (tersedia secara online)';font-style:italic}
+  .qr-card{break-inside:avoid;padding:16pt}
+  footer{padding:30pt 40pt;page-break-before:auto}
+  main{max-width:100%;padding:0 40pt 0}
+  .toc-section,.metanoia-intro{max-width:100%;padding:20pt 40pt}
+
+  /* PDF Page Setup */
+  @page{
+    size:A4;
+    margin:18mm 22mm 22mm 22mm;
+  }
+  @page:first{margin-top:0;margin-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<!-- Reading Progress -->
+<div id="progress-bar"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- DRAWER OVERLAY -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER NAV -->
+<nav class="nav-drawer" id="navDrawer">
+  <div class="drawer-section">
+    <div class="drawer-label">Kasih dan Setia</div>
+    <a href="#content" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">—</span>Sampul & Daftar Isi</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-label">Bab-Bab</div>
+    <a href="#pengantar" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">Pngtr</span>Sebelum Semua Ini</a>
+    <a href="#bab1" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">I</span>Awal</a>
+    <a href="#bab2" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">II</span>Vonis</a>
+    <a href="#bab3" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">III</span>Intubasi Lala</a>
+    <a href="#bab4" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">IV</span>Rutinitas Baru</a>
+    <a href="#bab5" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">V</span>Jojo Pelipur Lara</a>
+    <a href="#bab6" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">VI</span>Dukungan</a>
+    <a href="#bab7" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">VII</span>Titik Terendah</a>
+    <a href="#bab8" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">VIII</span>Kadang Kita Lupa</a>
+    <a href="#bab9" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">IX</span>Jojo Intubasi</a>
+    <a href="#bab10" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">X</span>Transplantasi Kedua</a>
+    <a href="#penutup" class="drawer-link" onclick="closeDrawer()"><span class="drawer-link-num">Ptr</span>Bersyukur</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-label">Unduh</div>
+    <div class="drawer-link" onclick="exportPDF();closeDrawer()">
+      <span class="drawer-link-num">PDF</span>Simpan sebagai PDF
+    </div>
+  </div>
+</nav>
+
+<!-- NAV BAR -->
+<header class="nav" id="navBar">
+  <div class="nav-brand">
+    <span class="nav-cross">✟</span>
+    <div class="nav-title-wrap">
+      <div class="nav-title">Kasih dan Setia</div>
+      <div class="nav-sub">Memoar Iman Keluarga</div>
+    </div>
+  </div>
+
+  <!-- Desktop chapter dropdown -->
+  <div class="nav-chapter-menu" id="chapterMenu">
+    <div class="nav-chapter-trigger" onclick="toggleChapterMenu()">
+      <span class="nav-ch-active-label" id="activeChLabel">Pilih Bab</span>
+      <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+    </div>
+    <div class="nav-chapter-dropdown">
+      <div class="dropdown-header">Daftar Bab</div>
+      <div class="dropdown-grid">
+        <a href="#pengantar" class="dropdown-item" onclick="selectChapter(this,'Pengantar')"><span class="di-num">—</span>Pengantar</a>
+        <a href="#bab1" class="dropdown-item" onclick="selectChapter(this,'I. Awal')"><span class="di-num">Bab I</span>Awal</a>
+        <a href="#bab2" class="dropdown-item" onclick="selectChapter(this,'II. Vonis')"><span class="di-num">Bab II</span>Vonis</a>
+        <a href="#bab3" class="dropdown-item" onclick="selectChapter(this,'III. Lala')"><span class="di-num">Bab III</span>Intubasi Lala</a>
+        <a href="#bab4" class="dropdown-item" onclick="selectChapter(this,'IV. Rutinitas')"><span class="di-num">Bab IV</span>Rutinitas Baru</a>
+        <a href="#bab5" class="dropdown-item" onclick="selectChapter(this,'V. Jojo')"><span class="di-num">Bab V</span>Jojo Pelipur Lara</a>
+        <a href="#bab6" class="dropdown-item" onclick="selectChapter(this,'VI. Dukungan')"><span class="di-num">Bab VI</span>Dukungan</a>
+        <a href="#bab7" class="dropdown-item" onclick="selectChapter(this,'VII. Terendah')"><span class="di-num">Bab VII</span>Titik Terendah</a>
+        <a href="#bab8" class="dropdown-item" onclick="selectChapter(this,'VIII. Sukacita')"><span class="di-num">Bab VIII</span>Kadang Kita Lupa</a>
+        <a href="#bab9" class="dropdown-item" onclick="selectChapter(this,'IX. Intubasi')"><span class="di-num">Bab IX</span>Jojo Intubasi</a>
+        <a href="#bab10" class="dropdown-item" onclick="selectChapter(this,'X. Transplantasi')"><span class="di-num">Bab X</span>Transplantasi</a>
+        <a href="#penutup" class="dropdown-item" onclick="selectChapter(this,'Penutup')"><span class="di-num">—</span>Bersyukur</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-actions">
+    <!-- PDF button desktop -->
+    <button class="btn-pdf" onclick="exportPDF()" title="Unduh PDF" style="display:none" id="navPdfBtn">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+      Unduh PDF
+    </button>
+    <!-- Hamburger -->
+    <div class="btn-menu" id="btnMenu" onclick="toggleDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- FAB PDF (mobile) -->
+<button class="fab-pdf" onclick="exportPDF()" aria-label="Unduh PDF">
+  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+  PDF
+</button>
+
+<!-- ════════════════════ COVER ════════════════════ -->
+<section class="cover" id="cover">
+  <div class="cover-cross">✟</div>
+  <div class="cover-rule"></div>
+  <div class="cover-eyebrow">Sebuah Memoar Iman Keluarga</div>
+  <div class="cover-title">Kasih</div>
+  <div class="cover-and">dan</div>
+  <div class="cover-title">Setia</div>
+  <div class="cover-photo-area" id="coverPhoto" onclick="addPhoto(this,'Foto Sampul Keluarga')">
+    <div class="cover-ph-icon">📷</div>
+    <div class="cover-ph-text">Tambahkan Foto Sampul</div>
+  </div>
+  <p class="cover-desc">Perjalanan dua anak yang berjuang melawan gagal ginjal stadium akhir — dan bagaimana kasih Allah yang tak berkesudahan menopang keluarga ini melewati lembah yang gelap menuju terang pemulihan.</p>
+  <div class="cover-cta" onclick="document.getElementById('content').scrollIntoView({behavior:'smooth'})">
+    <span>Mulai Membaca</span>
+    <div class="cover-arrow"></div>
+  </div>
+</section>
+
+<!-- ════════════════════ TABLE OF CONTENTS ════════════════════ -->
+<div id="content">
+<section class="toc-section fade-in">
+  <div class="section-label">Daftar Isi</div>
+  <h2 class="section-title">Perjalanan Dalam Buku Ini</h2>
+  <div class="section-rule"></div>
+  <ul class="toc-list">
+    <li><a href="#pengantar" class="toc-link"><span class="toc-n">Pengantar</span><span class="toc-t">Sebelum Semua Ini<span class="toc-s">Kisah yang lahir bukan dari keinginan, melainkan dari perjalanan</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab1" class="toc-link"><span class="toc-n">Bab I</span><span class="toc-t">Awal<span class="toc-s">Des 2019 — ketika segalanya dimulai dari RS yang kebanjiran</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab2" class="toc-link"><span class="toc-n">Bab II</span><span class="toc-t">Vonis<span class="toc-s">Ketika langit terasa runtuh — diagnosis CKD end stage Lala</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab3" class="toc-link"><span class="toc-n">Bab III</span><span class="toc-t">Intubasi Lala<span class="toc-s">Saturasi 70% — malam yang tidak akan pernah terlupakan</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab4" class="toc-link"><span class="toc-n">Bab IV</span><span class="toc-t">Rutinitas Baru<span class="toc-s">Hidup dengan hemodialisis — iman yang diuji di tengah pandemi</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab5" class="toc-link"><span class="toc-n">Bab V</span><span class="toc-t">Jojo Pelipur Lara<span class="toc-s">Adik yang menjadi semangat — ternyata juga berjuang</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab6" class="toc-link"><span class="toc-n">Bab VI</span><span class="toc-t">Dukungan yang Tak Pernah Berhenti<span class="toc-s">Transplantasi Lala — tangan-tangan kasih yang datang</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab7" class="toc-link"><span class="toc-n">Bab VII</span><span class="toc-t">Titik Terendah<span class="toc-s">Jojo masuk HD — dua anak, satu hati orang tua yang terbagi</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab8" class="toc-link"><span class="toc-n">Bab VIII</span><span class="toc-t">Kadang Kita Lupa<span class="toc-s">Di antara duka, ada sukacita yang tetap hadir</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab9" class="toc-link"><span class="toc-n">Bab IX</span><span class="toc-t">Jojo Intubasi<span class="toc-s">30 Des 2023 — hari biasa yang berubah darurat</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#bab10" class="toc-link"><span class="toc-n">Bab X</span><span class="toc-t">Transplantasi Kedua<span class="toc-s">26 Maret 2024 — Jojo menerima karunia kehidupan baru</span></span><span class="toc-dots"></span></a></li>
+    <li><a href="#penutup" class="toc-link"><span class="toc-n">Penutup</span><span class="toc-t">Kasih yang Tak Berkesudahan<span class="toc-s">Metanoia: pertobatan hati yang lahir di tengah badai</span></span><span class="toc-dots"></span></a></li>
+  </ul>
+</section>
+
+<!-- METANOIA INTRO -->
+<div class="metanoia-intro fade-in">
+  <div class="metanoia-box">
+    <h2>Metanoia</h2>
+    <p><em>Metanoia</em> — sebuah kata Yunani yang berarti "perubahan pikiran secara menyeluruh, pertobatan hati yang sejati." Inilah yang terjadi di tengah-tengah badai yang tidak pernah terbayangkan. Bukan sekadar bertahan hidup — tetapi diperbaharui.</p>
+  </div>
+</div>
+
+<main>
+
+<!-- ════ PENGANTAR ════ -->
+<section id="pengantar" class="chapter fade-in">
+  <div class="chapter-num">Pengantar</div>
+  <h2 class="chapter-title">Sebelum <em>Semua Ini</em></h2>
+  <p class="chapter-tagline">Kisah yang lahir bukan dari keinginan, melainkan dari perjalanan.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Ada kisah-kisah yang tidak pernah kita rencanakan untuk diceritakan. Kisah yang lahir bukan dari keinginan, melainkan dari perjalanan — dari malam-malam panjang di lorong rumah sakit, dari genggaman tangan yang erat di ruang tunggu IGD, dari doa-doa yang terucap di antara tangis yang tak tertahan.</p>
+  <p class="prose">Ini adalah kisah keluarga kami. Tentang <strong>Lala</strong> dan <strong>Jojo</strong> — dua anak kami yang berjuang dengan seluruh kekuatan kecil mereka. Tentang iman yang diuji, diperdalam, dan pada akhirnya dimurnikan. Tentang kasih yang nyata, dan setia yang tidak pernah habis.</p>
+  <p class="prose">Kami menuliskan ini bukan karena kami adalah keluarga yang luar biasa. Kami hanyalah keluarga biasa yang menghadapi hal-hal yang luar biasa berat — dan menemukan bahwa di dalamnya, ada tangan Tuhan yang tidak pernah melepaskan.</p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Keluarga')"><div class="ph-icon">📷</div><div class="ph-text">Foto Keluarga</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala dan Jojo')"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+</section>
+
+<!-- ════ BAB I ════ -->
+<section id="bab1" class="chapter fade-in">
+  <div class="chapter-num">Bab Pertama</div>
+  <h2 class="chapter-title"><em>Awal</em></h2>
+  <p class="chapter-tagline">Des 2019 — perjalanan yang dimulai tanpa peringatan, dari rumah sakit yang kebanjiran.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Perjalanan ini bermula dari sesuatu yang tampak biasa — Lala yang tidak kunjung sehat, tubuhnya sedikit bengkak. Dokter sudah mencurigai ginjal, namun kami belum tahu betapa jauh perjalanan yang akan kami tempuh. Tidak ada tanda-tanda yang cukup jelas untuk membuat kami bersiap.</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">27 Desember 2019</div><div class="tl-title">Lala dirawat di RS Mitra Keluarga Barat</div><div class="tl-text">Dokter curiga ginjal karena tubuh Lala bengkak. Pemeriksaan awal dimulai.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1 Januari 2020</div><div class="tl-title">RS Mitra Barat kebanjiran — evakuasi dengan tronton</div><div class="tl-text">Lala dievakuasi ke RS Mitra Keluarga Timur. Momen tak terduga di hari pertama tahun baru. Dirawat hingga 5 Januari.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Awal Januari 2020</div><div class="tl-title">Dirujuk ke dr. Sudung Pardede, SpA</div><div class="tl-text">Di Hermina Barat dinyatakan CKD final stage — dirujuk ke RSCM untuk hemodialisis.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">10 Februari 2020</div><div class="tl-title">Second opinion ke Kuala Lumpur</div><div class="tl-text">Subang Jaya Hospital, bersama dr. Indon Lajin. Diagnosa sama — CKD end stage.</div></div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'RS Mitra Barat Desember 2019')"><div class="ph-icon">📷</div><div class="ph-text">RS Mitra Barat</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Evakuasi dengan tronton')"><div class="ph-icon">📷</div><div class="ph-text">Evakuasi tronton</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Kuala Lumpur Subang Jaya Hospital')"><div class="ph-icon">📷</div><div class="ph-text">Kuala Lumpur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+</section>
+
+<!-- ════ BAB II ════ -->
+<section id="bab2" class="chapter fade-in">
+  <div class="chapter-num">Bab Kedua</div>
+  <h2 class="chapter-title"><em>Vonis</em></h2>
+  <p class="chapter-tagline">"Kami berdua seperti baru saja melihat sebuah kilatan petir yang amat silau hingga membuat seluruh tubuh kami kaku."</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Aku duduk di luar ruang praktek dokter sambil mencoba menenangkan diri. Wajah istriku juga terlihat sama pucat nya denganku — kami berdua seperti baru saja melihat sebuah kilatan petir yang amat silau hingga membuat seluruh tubuh kami kaku.</p>
+  <p class="prose"><strong>Hemodialisis dan transplantasi ginjal.</strong> Dua istilah yang membuatku gemetar membayangkan semua hal itu harus dijalani oleh Lala — yang baru saja kelas dua SD.</p>
+  <p class="prose">Serangkaian pemeriksaan membuat dokter menyimpulkan Lala menderita <strong>Chronic Kidney Disease (CKD) end stage</strong>. Penyakit ini menyebabkan pertumbuhan Lala melambat — ia tampak seperti anak 5 tahun di usianya yang sudah 8 tahun, selalu tidak bisa tidur nyenyak.</p>
+  <div class="pull-quote"><p>Banyak potongan perilaku Lala yang kuabaikan; sulit tidur, mudah lelah, mual dan susah makan, bau mulut karena kandungan ureum. Oh Tuhan... semua ini salahku.</p></div>
+  <p class="prose">Masih terduduk di bangku yang sama, aku masih berharap ini adalah kesalahan — semua hanyalah mimpi buruk. <strong>Hati kami kacau.</strong> Dan dalam kegelisahan itu, pikiran-pikiran itu berputar tak henti: <em>Apakah ini kesalahanku? Apakah Tuhan sedang menghukumku?</em></p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Saat di klinik menerima vonis')"><div class="ph-icon">📷</div><div class="ph-text">Momen vonis</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala saat didiagnosis')"><div class="ph-icon">📷</div><div class="ph-text">Lala saat itu</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="scripture"><p>"Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan."</p><cite>— Yeremia 29:11</cite></div>
+  <div class="yt-wrap" data-label="Momen Vonis — Kisah Nyata Lala"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Momen Vonis — Kisah Nyata Lala</div></div>
+</section>
+
+<!-- ════ BAB III ════ -->
+<section id="bab3" class="chapter fade-in">
+  <div class="chapter-num">Bab Ketiga</div>
+  <h2 class="chapter-title"><em>Intubasi Lala</em></h2>
+  <p class="chapter-tagline">Saturasi 70% — malam yang terasa sangat panjang, dalam belas kasih Tuhan.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Malam itu Lala dilarikan ke IGD dalam keadaan tak sadarkan diri. Paru-parunya terendam cairan. Saturasi oksigen menurun drastis ke angka <strong>70%</strong>. Dokter langsung meminta persetujuan untuk melakukan intubasi.</p>
+  <p class="prose">Dari balik tirai pembatas yang tak sengaja tersingkap, aku dan istriku melihat potongan peristiwa yang tak pernah terbayangkan sebelumnya. Ku eratkan genggaman tangan istriku, sembari menguatkan hati melihat Lala yang mengerang saat selang intubasi dimasukkan ke tenggorokan.</p>
+  <div class="pull-quote"><p>"Lala harus segera transplant, kasihan dia sangat menderita" — sepenggal kalimat yang terucap dari bibir istriku yang bergetar, sambil terus melihat Lala yang masih mendapatkan perawatan.</p></div>
+  <p class="prose">Malam yang terasa sangat panjang. Bunyi alat medis saling bersahutan di ruang yang penuh sesak. Sungguh tidak terbayangkan — namun justru di sinilah kami merasakan belas kasih Tuhan yang nyata. Kondisi Lala mulai stabil. Lala dipindahkan ke PICU — kondisinya berangsur pulih.</p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Malam di IGD intubasi Lala')"><div class="ph-icon">📷</div><div class="ph-text">Malam di IGD</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Ruang PICU Lala')"><div class="ph-icon">📷</div><div class="ph-text">Ruang PICU</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala mulai pulih')"><div class="ph-icon">📷</div><div class="ph-text">Lala mulai pulih</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Lala: Malam Intubasi"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Lala: Malam Intubasi</div></div>
+  <div class="scripture"><p>"Ia memberi kekuatan kepada yang lelah dan menambah semangat kepada yang tiada berdaya."</p><cite>— Yesaya 40:29</cite></div>
+</section>
+
+<!-- ════ BAB IV ════ -->
+<section id="bab4" class="chapter fade-in">
+  <div class="chapter-num">Bab Keempat</div>
+  <h2 class="chapter-title">Rutinitas Baru — <em>Iman yang Bergejolak</em></h2>
+  <p class="chapter-tagline">April 2020 — pandemi melanda, HD dimulai, dan hidup kami berubah selamanya.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">April datang membawa cobaan ganda — Covid melanda, dan Lala kembali kejang. Setelah perjalanan darurat ke beberapa rumah sakit, Lala tiba di IGD RSCM dengan Hb 3,6. Malam itu kami harus mengambil darah di bank darah jam 01.00 pagi.</p>
+  <p class="prose">Pagi harinya, Suster Yety dan dr. Eka datang — mereka menginfokan Lala harus segera HD. CDL dipasang. Ureum 200, kreatinin 18. <em>23 April 2020</em> — Lala menjalani hemodialisis pertamanya. Sebuah tanggal yang tidak akan pernah kami lupakan.</p>
+  <div class="pull-quote"><p>Di tengah semua itu, kami belajar satu hal yang tidak ada dalam buku manapun: bahwa kekuatan seorang anak terkadang jauh melampaui kekuatan orang tuanya.</p></div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">23 April 2020</div><div class="tl-title">Hemodialisis Pertama Lala</div><div class="tl-text">CDL terpasang. Ureum 200, kreatinin 18. HD seminggu 2 kali menjadi jadwal tetap.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Kejadian I</div><div class="tl-title">Lala kejang saat HD</div><div class="tl-text">Dirawat IGD 3 hari.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Kejadian II</div><div class="tl-title">Kejang setelah nasi kuning buatan Uti</div><div class="tl-text">Saturasi turun 70%. Diputuskan pindah ke CAPD.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Hiburan Kecil</div><div class="tl-title">Nyanyi bersama, diunggah ke YouTube</div><div class="tl-text">Momen kecil yang menjadi obat hati keluarga.</div></div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Lala HD pertama 23 April 2020')"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala di kursi dialisis')"><div class="ph-icon">📷</div><div class="ph-text">Kursi dialisis</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Nyanyi bersama Lala')"><div class="ph-icon">📷</div><div class="ph-text">Nyanyi bersama</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Lala Nyanyi — Video YouTube Keluarga"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Lala Nyanyi — Video YouTube Keluarga</div></div>
+</section>
+
+<!-- ════ BAB V ════ -->
+<section id="bab5" class="chapter fade-in">
+  <div class="chapter-num">Bab Kelima</div>
+  <h2 class="chapter-title">Jojo <em>Pelipur Lara</em></h2>
+  <p class="chapter-tagline">Adik yang menjadi semangat keluarga — ternyata juga menyimpan pergumulannya sendiri.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Jojo — si adik yang menjadi pelipur lara, yang merayakan ulang tahunnya pada 11 Oktober 2021 di tengah segala kekhawatiran kami — ternyata menyimpan pergumulannya sendiri yang tidak kalah berat.</p>
+  <p class="prose">Di tengah persiapan transplant Lala, kami memeriksakan Jojo juga. Apa yang kami temukan menghantam kami untuk kedua kalinya: <em>Jojo pun memiliki masalah ginjal.</em></p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2021</div><div class="tl-title">Jojo ikut diperiksa</div><div class="tl-text">Dalam proses mempersiapkan transplant Lala, dokter menyarankan Jojo diperiksa juga. Hasilnya mengejutkan.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6 April 2021</div><div class="tl-title">Jojo biopsi di RSCM Kencana</div><div class="tl-text">Untuk memastikan kondisi ginjal Jojo secara lebih detail.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Pasca biopsi</div><div class="tl-title">Kemungkinan Jojo masuk HD</div><div class="tl-text">Kami harus bersiap — Jojo mungkin akan HD di usia yang sangat belia. Opa jatuh sakit mendengar ini.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">11 Oktober 2021</div><div class="tl-title">Ulang tahun Jojo</div><div class="tl-text">Dirayakan penuh syukur dan doa — di antara semua yang sedang kami hadapi.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">24 Desember 2021</div><div class="tl-title">Jojo menjalani stemcell</div><div class="tl-text">Harapan baru. 2 bulan pertama menunjukkan perbaikan yang menggembirakan.</div></div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Ulang tahun Jojo Oktober 2021')"><div class="ph-icon">📷</div><div class="ph-text">Ulang tahun Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo biopsi RSCM Kencana')"><div class="ph-icon">📷</div><div class="ph-text">Jojo biopsi</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo dan Lala bersama 2021')"><div class="ph-icon">📷</div><div class="ph-text">Jojo &amp; Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+</section>
+
+<!-- ════ BAB VI ════ -->
+<section id="bab6" class="chapter fade-in">
+  <div class="chapter-num">Bab Keenam</div>
+  <h2 class="chapter-title">Dukungan yang <em>Tak Pernah Berhenti</em></h2>
+  <p class="chapter-tagline">Menjelang transplantasi Lala — tangan-tangan kasih datang dari segala arah.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Menjelang transplantasi, kami tidak berjalan sendirian. Tangan-tangan kasih datang dari segala arah — teman-teman yang berdoa via Zoom, para romo yang hadir, komunitas yang menopang tanpa diminta. Kasih Allah mengalir melalui tangan-tangan manusia yang mau menjadi salurannya.</p>
+  <div class="milestone-grid">
+    <div class="milestone"><div class="ms-date">15 Oktober 2021</div><div class="ms-label">Sakramen Perminyakan Lala di St. Klara</div></div>
+    <div class="milestone"><div class="ms-date">25 Oktober 2021</div><div class="ms-label">Doa bersama di rumah sebelum karantina</div></div>
+    <div class="milestone"><div class="ms-date">26 Oktober pagi</div><div class="ms-label">Saturasi Lala turun — berangkat ke RSCM dengan oksigen</div></div>
+    <div class="milestone"><div class="ms-date">26 Oktober 2021</div><div class="ms-label">Lala masuk karantina RSCM</div></div>
+    <div class="milestone"><div class="ms-date">2 November 2021</div><div class="ms-label">✦ Lala Transplant Ginjal</div></div>
+  </div>
+  <div class="pull-quote"><p>Ada satu momen yang tidak akan pernah kulupakan: ketika dokter berkata "ginjalnya berfungsi", dan aku melihat senyum istrikku — senyum yang sudah lama sekali tidak kulihat sebersih itu.</p></div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Lala St Klara')"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Doa bersama sebelum karantina')"><div class="ph-icon">📷</div><div class="ph-text">Doa bersama</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala hari transplant 2 November 2021')"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Transplantasi Lala — Karunia Kehidupan"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Transplantasi Lala — Karunia Kehidupan</div></div>
+  <div class="scripture"><p>"Orang yang menabur dengan mencucurkan air mata, akan menuai dengan bersorak-sorai."</p><cite>— Mazmur 126:5</cite></div>
+</section>
+
+<!-- ════ BAB VII ════ -->
+<section id="bab7" class="chapter fade-in">
+  <div class="chapter-num">Bab Ketujuh</div>
+  <h2 class="chapter-title"><em>Titik Terendah</em></h2>
+  <p class="chapter-tagline">Maret 2022 — Jojo masuk HD. Dua anak, dua rumah sakit, satu hati orang tua yang terbagi.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Maret datang membawa kemunduran. Kondisi Jojo mulai menurun — badan lemas, napas mulai berat, mata terlihat kadang tidak sinkron. Harapan dari stemcell perlahan memudar. Kami kembali ke titik yang paling kami takutkan.</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Akhir Maret 2022</div><div class="tl-title">Jojo masuk IGD RSCM Kencana</div><div class="tl-text">Diputuskan harus segera HD. Keputusan yang berat namun tidak ada pilihan lain.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1 April 2022</div><div class="tl-title">Jojo pasang CDL — HD pertama dimulai</div><div class="tl-text">Bersamaan, Lala masuk untuk terapi IVIG di Gedung A RSCM. Dua anak, satu hari yang sama.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Pasca CDL</div><div class="tl-title">Jojo dirawat karena infeksi CDL</div><div class="tl-text">Tiba-tiba kejang, tensi tinggi, ditemukan kondisi MIS-C yang memerlukan penanganan serius.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Bersamaan</div><div class="tl-title">Lala terkena Demam Berdarah</div><div class="tl-text">Dirawat di IGD isolasi. Di titik paling berat — namun tidak sendirian.</div></div>
+  </div>
+  <div class="note"><strong>Catatan:</strong> Di titik ini, dua anak kami berada di kondisi kritis berbeda, di ruang berbeda. Namun justru di sinilah kami melihat kehadiran Tuhan paling nyata — melalui setiap orang yang datang membantu tanpa diminta.</div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo IGD RSCM Kencana 2022')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD 2022</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo HD pertama April 2022')"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="scripture"><p>"Janganlah takut, sebab Aku menyertai engkau, janganlah bimbang, sebab Aku ini Allahmu; Aku akan meneguhkan, bahkan akan menolong engkau."</p><cite>— Yesaya 41:10</cite></div>
+</section>
+
+<!-- ════ BAB VIII ════ -->
+<section id="bab8" class="chapter fade-in">
+  <div class="chapter-num">Bab Kedelapan</div>
+  <h2 class="chapter-title">Kadang Kita <em>Lupa</em></h2>
+  <p class="chapter-tagline">2023 — di antara duka, sukacita tetap hadir. Dua realita yang berjalan berdampingan.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Di antara segala pergumulan, ada momen-momen yang mengingatkan kami bahwa kehidupan terus berjalan dengan segala keindahannya yang sederhana. Bahwa sukacita tidak menunggu duka selesai — ia hadir berdampingan, mengalir di celah-celah kesedihan seperti cahaya yang menerobos jendela.</p>
+  <p class="prose"><em>30 April 2023</em> — Kakak Sisi meraih juara OSN IPA tingkat Kota Jakarta Timur dan melaju ke tingkat provinsi. Kebanggaan mengalir deras. Ada sukacita yang nyata dan tidak dapat disembunyikan.</p>
+  <p class="prose">Namun November kembali membawa kekhawatiran. Kondisi Jojo menurun — hampir setiap malam ia membutuhkan oksigen karena saturasi yang terus merosot. Tabung oksigen menjadi teman setia malam kami. Kami tahu ini akan ada ujungnya, dan kami terus berdoa.</p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Sisi juara OSN April 2023')"><div class="ph-icon">📷</div><div class="ph-text">Sisi juara OSN</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo di rumah dengan oksigen 2023')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di rumah 2023</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Momen keluarga 2023')"><div class="ph-icon">📷</div><div class="ph-text">Momen keluarga</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Momen Keluarga 2023"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Momen Keluarga 2023</div></div>
+</section>
+
+<!-- ════ BAB IX ════ -->
+<section id="bab9" class="chapter fade-in">
+  <div class="chapter-num">Bab Kesembilan</div>
+  <h2 class="chapter-title"><em>Jojo Intubasi</em></h2>
+  <p class="chapter-tagline">"Hari yang seharusnya menjadi jadwal pemeriksaan darah rutin, berubah menjadi keadaan darurat."</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Pagi itu kami sudah berbagi tugas. Aku pergi ke toko seperti biasa. Istriku mengantar Jojo untuk cek darah rutin ke RSCM, ditemani Lala yang kebetulan libur sekolah. Semua sepertinya akan berjalan seperti yang sudah direncanakan.</p>
+  <p class="prose">Namun menjelang siang, istriku dengan panik menggambarkan kondisinya melalui telepon.</p>
+  <div class="scene-sep">— — —</div>
+  <div class="narrative">Jojo yang tertidur selama perjalanan mendadak terbangun dari bangku belakang mobil. Ia mengeluh dadanya sesak. Wajahnya pucat dan kesulitan bernapas. Ia berteriak-teriak panik dan gelagapan seperti orang yang sedang tenggelam. Tubuhnya lunglai kebiruan karena kekurangan oksigen. Lala berteriak histeris: <strong>"Jojo jangan pergi!"</strong></div>
+  <p class="prose">Perjalanan tinggal beberapa kilometer menuju RSCM, namun proyek LRT menyebabkan perjalanan tersendat. Istriku membuka kaca jendela, berteriak meminta bantuan. Beberapa pengendara motor membantu membuka jalan — akhirnya mobil sampai di depan IGD.</p>
+  <div class="pull-quote"><p>Dengan amat sigap seorang satpam membuka pintu mobil dan menggotong tubuh Jojo menuju ruang resusitasi. Istriku pasrah: "mungkin ini adalah saatnya", pikirnya.</p></div>
+  <p class="prose">Proses intubasi dilakukan. Selang ventilator terpasang. Istriku menggenggam tangan Jojo sambil terus memanggil namanya. Aku berusaha menguatkan istriku — menghadapi peristiwa yang dulu pernah kami alami bersama Lala.</p>
+  <p class="prose">Beberapa teman datang memberikan support. Romo berkenan hadir dan memberikan <em>sakramen perminyakan</em> sesaat sebelum Jojo dipindahkan ke PICU.</p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo di IGD 30 Desember 2023')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala menunggu di depan IGD')"><div class="ph-icon">📷</div><div class="ph-text">Lala menunggu</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Jojo IGD')"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Jojo: Dari Intubasi hingga PICU"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Jojo: Dari Intubasi hingga PICU</div></div>
+  <div class="scripture"><p>"Janganlah takut, sebab Aku menyertai engkau, janganlah bimbang, sebab Aku ini Allahmu; Aku akan meneguhkan, bahkan akan menolong engkau."</p><cite>— Yesaya 41:10</cite></div>
+</section>
+
+<!-- ════ BAB X ════ -->
+<section id="bab10" class="chapter fade-in">
+  <div class="chapter-num">Bab Kesepuluh</div>
+  <h2 class="chapter-title">Transplantasi Kedua: <em>Ketika Jojo Menerima Karunia</em></h2>
+  <p class="chapter-tagline">26 Maret 2024 — setelah semua penantian, semua doa, semua air mata.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+  <p class="prose dropcap">Transplantasi ginjal bukan sekadar operasi. Ini adalah sebuah karunia — seseorang menyerahkan sebagian dari dirinya agar yang lain bisa hidup. Dan ketika itu akhirnya tiba — rasanya seperti menghirup udara untuk pertama kali setelah tenggelam begitu lama.</p>
+  <div class="milestone-grid">
+    <div class="milestone"><div class="ms-date">10 Januari 2024</div><div class="ms-label">Jojo masih dirawat di PICU</div></div>
+    <div class="milestone"><div class="ms-date">30 Januari 2024</div><div class="ms-label">Misa Syukur — Jojo pulang, persiapan transplant, ultah Mami, pemberkatan rumah</div></div>
+    <div class="milestone"><div class="ms-date">19 Maret 2024</div><div class="ms-label">Sakramen Perminyakan Papi &amp; Jojo oleh Romo Dipta</div></div>
+    <div class="milestone"><div class="ms-date">26 Maret 2024</div><div class="ms-label">✦ Jojo Transplant Ginjal</div></div>
+  </div>
+  <p class="prose">Dan pada akhirnya, <strong>kedua anak kami — Lala dan Jojo — berhasil menjalani transplantasi ginjal.</strong> Bukan kebetulan. Bukan keberuntungan. Ini adalah pemeliharaan Allah yang bekerja melalui tangan dokter, perawat, keluarga, dan sahabat yang mengasihi mereka.</p>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Misa Syukur Jojo Januari 2024')"><div class="ph-icon">📷</div><div class="ph-text">Misa Syukur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo hari transplant 26 Maret 2024')"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo setelah transplant pemulihan')"><div class="ph-icon">📷</div><div class="ph-text">Jojo pemulihan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Transplantasi Jojo — 26 Maret 2024"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Transplantasi Jojo — 26 Maret 2024</div></div>
+  <div class="scripture"><p>"Orang yang menabur dengan mencucurkan air mata, akan menuai dengan bersorak-sorai."</p><cite>— Mazmur 126:5</cite></div>
+</section>
+
+<!-- ════ PENUTUP ════ -->
+<section id="penutup" class="chapter fade-in" style="text-align:center">
+  <div class="chapter-num">Penutup</div>
+  <h2 class="chapter-title">Kasih yang <em>Tak Berkesudahan</em></h2>
+  <p class="chapter-tagline" style="border-left:none;padding-left:0;text-align:center">Metanoia — pertobatan hati yang sejati lahir di tengah-tengah badai.</p>
+  <div class="ornament"><div class="ornament-line"></div><div class="ornament-star">✦</div><div class="ornament-line r"></div></div>
+
+  <p class="prose dropcap" style="text-align:left">Ada sebuah kata Yunani yang menangkap dengan sempurna apa yang terjadi pada diri kami: <strong><em>Metanoia</em></strong>. Secara harfiah berarti "perubahan pikiran" — namun maknanya jauh lebih dalam. Ini adalah transformasi hati yang terjadi ketika kita berjumpa dengan realita yang lebih besar dari diri kita.</p>
+  <p class="prose" style="text-align:left">Sebelum semua ini, aku mengira aku cukup mengenal Allah. Tapi perjalanan ini mengajarkan bahwa mengenal Allah secara intelektual sangat berbeda dengan bersandar pada-Nya secara total — ketika tidak ada pilihan lain selain percaya.</p>
+  <div class="pull-quote"><p>Di kamar-kamar rumah sakit itulah aku benar-benar belajar berdoa. Bukan doa yang indah dan terformulasi, tapi doa yang lahir dari perut — menjerit dari kedalaman yang tak bisa dijelaskan dengan kata-kata.</p></div>
+  <div class="narrative" style="text-align:left">Kepada semua yang pernah menemani kami — yang pernah duduk di ruang tunggu ICU, yang pernah membawakan makanan, yang pernah mengirimkan pesan singkat di tengah malam, yang pernah mendoakan nama Lala dan Jojo — <em>terima kasih</em>. Kasih kalian adalah cerminan kasih-Nya.</div>
+  <div class="pull-quote"><p>Kamu tidak sendirian. Allah tidak melupakanmu. Kasih-Nya tidak berkesudahan, dan setia-Nya baru setiap pagi.</p><cite>— Ratapan 3:22-23</cite></div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="addPhoto(this,'Lala dan Jojo sehat 2024')"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo sehat</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto keluarga lengkap 2024')"><div class="ph-icon">📷</div><div class="ph-text">Keluarga lengkap</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Momen syukur keluarga')"><div class="ph-icon">📷</div><div class="ph-text">Momen syukur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+  </div>
+  <div class="yt-wrap" data-label="Metanoia — Kesaksian Lengkap Keluarga"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Kesaksian Lengkap</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Metanoia — Kesaksian Lengkap Keluarga</div></div>
+  <div class="scripture"><p>"Tak berkesudahan kasih setia TUHAN, tak habis-habisnya rahmat-Nya, selalu baru tiap pagi; besar kesetiaan-Mu!"</p><cite>— Ratapan 3:22-23</cite></div>
+
+  <a class="qr-card" href="https://kasihdansetia.my.canva.site/" target="_blank" rel="noopener">
+    <div class="qr-box" id="qrMetanoia"></div>
+    <div class="qr-info">
+      <div class="qr-label">Kunjungi Website</div>
+      <div class="qr-title">Metanoia — Kisah Lengkap Online</div>
+      <div class="qr-desc">Saksikan seluruh kisah Kasih dan Setia. Scan QR code atau klik untuk mengunjungi.</div>
+      <div class="qr-url">kasihdansetia.my.canva.site</div>
+    </div>
+  </a>
+  <div class="vis-break">✦ ✦ ✦</div>
+</section>
+
+</main>
+</div><!-- #content -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cross">✟</div>
+  <div class="footer-title">Kasih dan Setia</div>
+  <p class="footer-verse">"Tak berkesudahan kasih setia TUHAN, tak habis-habisnya rahmat-Nya, selalu baru tiap pagi; besar kesetiaan-Mu!"<br><em>— Ratapan 3:22-23</em></p>
+  <p class="footer-site">Saksikan kisah lengkap di <a href="https://kasihdansetia.my.canva.site/" target="_blank">kasihdansetia.my.canva.site</a></p>
+</footer>
+
+<script>
+/* ── NAV SHOW/HIDE ── */
+const nav = document.getElementById('navBar');
+const pb  = document.getElementById('progress-bar');
+let lastY = 0;
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  pb.style.width = (h>0 ? (y/h*100) : 0)+'%';
+  nav.classList.toggle('show', y > innerHeight*0.7);
+  lastY = y;
+}, {passive:true});
+
+/* Desktop PDF btn */
+if(window.innerWidth >= 900) document.getElementById('navPdfBtn').style.display='flex';
+window.addEventListener('resize',()=>{
+  document.getElementById('navPdfBtn').style.display = window.innerWidth>=900?'flex':'none';
+});
+
+/* ── DRAWER ── */
+const drawer = document.getElementById('navDrawer');
+const overlay = document.getElementById('drawerOverlay');
+const btnMenu = document.getElementById('btnMenu');
+function toggleDrawer(){
+  const open = drawer.classList.toggle('open');
+  overlay.classList.toggle('open',open);
+  btnMenu.classList.toggle('open',open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeDrawer(){
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  btnMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── FADE IN (IntersectionObserver) ── */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.05});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+/* ── QR CODE ── */
+window.addEventListener('load',()=>{
+  const el = document.getElementById('qrMetanoia');
+  if(el && typeof QRCode!=='undefined'){
+    new QRCode(el,{text:'https://kasihdansetia.my.canva.site/',width:88,height:88,colorDark:'#2C1810',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+  }
+});
+
+/* ── TOAST ── */
+function showToast(msg, dur=2800){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+
+/* ── ADD PHOTO ── */
+function addPhoto(slot, label){
+  const url = window.prompt('Tempel URL foto untuk "'+label+'":\n\nContoh:\nhttps://drive.google.com/uc?id=XXXX\nhttps://i.imgur.com/XXXX.jpg');
+  if(!url||!url.trim()) return;
+  const existing = slot.querySelector('img');
+  if(existing){ existing.src=url.trim(); showToast('Foto diperbarui ✓'); return; }
+  slot.innerHTML='';
+  const img = document.createElement('img');
+  img.src = url.trim(); img.alt = label;
+  img.onerror=()=>{ slot.innerHTML='<div class="ph-icon">⚠️</div><div class="ph-text" style="color:#8B3A3A">Gambar gagal dimuat. Klik untuk coba lagi.</div>'; slot.onclick=()=>addPhoto(slot,label); };
+  img.onload=()=>showToast('Foto berhasil ditambahkan ✓');
+  const ov = document.createElement('div'); ov.className='ph-overlay'; ov.innerHTML='<span>Ganti Foto</span>';
+  const cp = document.createElement('div'); cp.className='ph-caption'; cp.textContent=label;
+  slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
+  slot.style.border='1px solid rgba(201,169,110,.5)';
+  slot.onclick=()=>addPhoto(slot,label);
+}
+
+/* ── ADD VIDEO ── */
+function addVideo(ph){
+  const wrap = ph.parentElement;
+  const label = wrap.dataset.label||'Video';
+  const url = window.prompt('Tempel link YouTube untuk "'+label+'":\n\nContoh:\nhttps://www.youtube.com/watch?v=XXXXXXXXXXX\nhttps://youtu.be/XXXXXXXXXXX');
+  if(!url||!url.trim()) return;
+  const m = url.trim().match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(!m){ showToast('⚠ Link YouTube tidak dikenali'); return; }
+  const iframe = document.createElement('iframe');
+  iframe.src='https://www.youtube.com/embed/'+m[1]+'?rel=0';
+  iframe.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;border:none;aspect-ratio:16/9;display:block;';
+  ph.replaceWith(iframe);
+  showToast('Video berhasil ditambahkan ✓');
+}
+
+/* ── PDF EXPORT ── */
+function exportPDF(){
+  showToast('Menyiapkan PDF... Gunakan "Simpan sebagai PDF" di dialog cetak');
+  setTimeout(()=>window.print(), 600);
+}
+
+/* ── CHAPTER DROPDOWN (desktop) ── */
+function toggleChapterMenu(){
+  document.getElementById('chapterMenu').classList.toggle('open');
+}
+function selectChapter(el, label){
+  document.getElementById('activeChLabel').textContent = label;
+  document.querySelectorAll('.dropdown-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('chapterMenu').classList.remove('open');
+}
+// Close dropdown on outside click
+document.addEventListener('click', e=>{
+  const menu = document.getElementById('chapterMenu');
+  if(menu && !menu.contains(e.target)) menu.classList.remove('open');
+});
+
+// Auto-detect current chapter via IntersectionObserver
+const chapterSections = document.querySelectorAll('section[id]');
+const chapterLabels = {
+  'pengantar':'Pengantar','bab1':'I. Awal','bab2':'II. Vonis',
+  'bab3':'III. Lala','bab4':'IV. Rutinitas','bab5':'V. Jojo',
+  'bab6':'VI. Dukungan','bab7':'VII. Terendah','bab8':'VIII. Sukacita',
+  'bab9':'IX. Intubasi','bab10':'X. Transplantasi','penutup':'Penutup'
+};
+const chapIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      const label = chapterLabels[id];
+      if(label){
+        const el = document.getElementById('activeChLabel');
+        if(el) el.textContent = label;
+        document.querySelectorAll('.dropdown-item').forEach(i=>{
+          i.classList.toggle('active', i.getAttribute('href')==='#'+id);
+        });
+        // also sync drawer
+        document.querySelectorAll('.drawer-link').forEach(i=>{
+          i.style.color = i.getAttribute('href')==='#'+id ? 'var(--gold)' : '';
+        });
+      }
+    }
+  });
+},{threshold:0.3});
+chapterSections.forEach(s=>chapIO.observe(s));
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault(); deferredPrompt=e;
+  setTimeout(()=>showToast('💡 Bisa diinstal sebagai aplikasi — ketuk ikon share lalu "Tambah ke Layar Utama"', 4000), 3000);
+});
+
+/* ── Service Worker (offline) ── */
+if('serviceWorker' in navigator){
+  const sw = `
+    const V='kds-v1';
+    self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>c.addAll(['/']))));
+    self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+  `;
+  const blob = new Blob([sw],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+</script>
+
+<!-- ════════════════════ ADMIN PANEL ════════════════════ -->
+<div class="adm-overlay" id="admOverlay" onclick="admClosePanel()"></div>
+
+<!-- LOGIN -->
+<div class="adm-login" id="admLogin">
+  <div class="adm-login-box">
+    <div class="adm-login-cross">✟</div>
+    <div class="adm-login-title">Admin Panel</div>
+    <div class="adm-login-sub">Kasih &amp; Setia</div>
+    <input class="adm-input" type="password" id="admPwInput" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')admDoLogin()">
+    <button class="adm-btn-login" onclick="admDoLogin()">Masuk</button>
+    <div class="adm-login-err" id="admLoginErr"></div>
+    <span class="adm-login-cancel" onclick="admCancelLogin()">Batal</span>
+  </div>
+</div>
+
+<!-- ADMIN PANEL SIDEBAR -->
+<div class="adm-panel" id="admPanel">
+  <div class="adm-head">
+    <div class="adm-head-brand">
+      <div class="adm-head-icon">⚙️</div>
+      <div>
+        <div class="adm-head-title">Admin Panel</div>
+        <div class="adm-head-sub">Kasih &amp; Setia</div>
+      </div>
+    </div>
+    <div class="adm-head-right">
+      <span class="adm-badge" id="admModeBadge">Mode: Baca</span>
+      <div class="adm-close-btn" onclick="admClosePanel()">✕</div>
+    </div>
+  </div>
+  <div class="adm-tabs">
+    <div class="adm-tab active" onclick="admTab(this,'pane-konten')">Konten</div>
+    <div class="adm-tab" onclick="admTab(this,'pane-media')">Media</div>
+    <div class="adm-tab" onclick="admTab(this,'pane-tampilan')">Tampilan</div>
+    <div class="adm-tab" onclick="admTab(this,'pane-ekspor')">Ekspor</div>
+    <div class="adm-tab" onclick="admTab(this,'pane-pengaturan')">Pengaturan</div>
+  </div>
+  <div class="adm-body">
+
+    <!-- ═══ TAB: KONTEN ═══ -->
+    <div class="adm-pane active" id="pane-konten">
+      <div class="adm-section">
+        <div class="adm-section-title">Mode Edit Teks</div>
+        <div class="adm-info-box">Aktifkan mode edit untuk mengklik langsung teks apa pun di halaman dan mengeditnya secara inline. Perubahan tersimpan otomatis di browser.</div>
+        <div class="adm-btn-row">
+          <button class="adm-btn primary full" id="btnEditMode" onclick="admToggleEditMode()" style="font-size:13px;padding:12px 16px">✏️ Aktifkan Mode Edit Teks</button>
+          <div class="adm-btn-row" style="margin-top:8px">
+            <button class="adm-btn secondary" onclick="admSaveEdits()">💾 Simpan ke Browser</button>
+            <button class="adm-btn danger" onclick="admDiscardEdits()">↺ Buang Perubahan</button>
+          </div>
+        </div>
+        <div class="adm-log" id="admEditLog">— Log perubahan akan muncul di sini —</div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Edit Per Bab</div>
+        <div class="adm-ch-list">
+          <div class="adm-ch-item" onclick="admEditChapter('pengantar','Pengantar')"><div class="adm-ch-item-left"><span class="adm-ch-num">—</span><span class="adm-ch-name">Pengantar</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab1','Bab I — Awal')"><div class="adm-ch-item-left"><span class="adm-ch-num">I</span><span class="adm-ch-name">Awal</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab2','Bab II — Vonis')"><div class="adm-ch-item-left"><span class="adm-ch-num">II</span><span class="adm-ch-name">Vonis</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab3','Bab III — Intubasi Lala')"><div class="adm-ch-item-left"><span class="adm-ch-num">III</span><span class="adm-ch-name">Intubasi Lala</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab4','Bab IV — Rutinitas Baru')"><div class="adm-ch-item-left"><span class="adm-ch-num">IV</span><span class="adm-ch-name">Rutinitas Baru</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab5','Bab V — Jojo Pelipur Lara')"><div class="adm-ch-item-left"><span class="adm-ch-num">V</span><span class="adm-ch-name">Jojo Pelipur Lara</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab6','Bab VI — Dukungan')"><div class="adm-ch-item-left"><span class="adm-ch-num">VI</span><span class="adm-ch-name">Dukungan</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab7','Bab VII — Titik Terendah')"><div class="adm-ch-item-left"><span class="adm-ch-num">VII</span><span class="adm-ch-name">Titik Terendah</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab8','Bab VIII — Kadang Kita Lupa')"><div class="adm-ch-item-left"><span class="adm-ch-num">VIII</span><span class="adm-ch-name">Kadang Kita Lupa</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab9','Bab IX — Jojo Intubasi')"><div class="adm-ch-item-left"><span class="adm-ch-num">IX</span><span class="adm-ch-name">Jojo Intubasi</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('bab10','Bab X — Transplantasi')"><div class="adm-ch-item-left"><span class="adm-ch-num">X</span><span class="adm-ch-name">Transplantasi Kedua</span></div><span>›</span></div>
+          <div class="adm-ch-item" onclick="admEditChapter('penutup','Penutup — Bersyukur')"><div class="adm-ch-item-left"><span class="adm-ch-num">—</span><span class="adm-ch-name">Penutup: Bersyukur</span></div><span>›</span></div>
+        </div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Info Buku</div>
+        <label class="adm-label">Judul Buku</label>
+        <input class="adm-field" id="admBookTitle" value="Kasih dan Setia" placeholder="Judul buku...">
+        <label class="adm-label">Subjudul / Deskripsi</label>
+        <textarea class="adm-field" id="admBookDesc" rows="3">Perjalanan dua anak yang berjuang melawan gagal ginjal stadium akhir — dan bagaimana kasih Allah menopang keluarga ini.</textarea>
+        <label class="adm-label">URL Website (untuk QR Code)</label>
+        <input class="adm-field" id="admSiteUrl" value="https://kasihdansetia.my.canva.site/" placeholder="https://...">
+        <div class="adm-btn-row">
+          <button class="adm-btn primary" onclick="admApplyBookInfo()">✓ Terapkan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: MEDIA ═══ -->
+    <div class="adm-pane" id="pane-media">
+      <div class="adm-section">
+        <div class="adm-section-title">Tambah Foto via URL</div>
+        <label class="adm-label">Pilih Bab</label>
+        <select class="adm-field" id="admPhotoChapter">
+          <option value="cover">Foto Sampul</option>
+          <option value="pengantar">Pengantar</option>
+          <option value="bab1">Bab I — Awal</option>
+          <option value="bab2">Bab II — Vonis</option>
+          <option value="bab3">Bab III — Intubasi Lala</option>
+          <option value="bab4">Bab IV — Rutinitas Baru</option>
+          <option value="bab5">Bab V — Jojo</option>
+          <option value="bab6">Bab VI — Dukungan</option>
+          <option value="bab7">Bab VII — Titik Terendah</option>
+          <option value="bab8">Bab VIII — Sukacita</option>
+          <option value="bab9">Bab IX — Jojo Intubasi</option>
+          <option value="bab10">Bab X — Transplantasi</option>
+          <option value="penutup">Penutup</option>
+        </select>
+        <label class="adm-label">Slot Foto (1, 2, atau 3)</label>
+        <select class="adm-field" id="admPhotoSlot">
+          <option value="0">Slot 1 (pertama)</option>
+          <option value="1">Slot 2 (kedua)</option>
+          <option value="2">Slot 3 (ketiga)</option>
+        </select>
+        <label class="adm-label">URL Foto</label>
+        <input class="adm-field" id="admPhotoUrl" placeholder="https://i.imgur.com/... atau Google Drive URL">
+        <label class="adm-label">Keterangan Foto (opsional)</label>
+        <input class="adm-field" id="admPhotoCaption" placeholder="Keterangan singkat...">
+        <div class="adm-btn-row">
+          <button class="adm-btn primary" onclick="admSetPhoto()">📷 Pasang Foto</button>
+        </div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Upload Foto dari Perangkat</div>
+        <div class="adm-upload-zone" id="admUploadZone" onclick="document.getElementById('admFileInput').click()" ondragover="admDragOver(event)" ondragleave="admDragLeave(event)" ondrop="admDrop(event)">
+          <div class="adm-upload-icon">📁</div>
+          <div class="adm-upload-text">Klik atau <strong>seret foto</strong> ke sini<br><span style="font-size:11px;opacity:.7">JPG, PNG, WEBP — maks 5MB per foto</span></div>
+        </div>
+        <input type="file" id="admFileInput" accept="image/*" multiple style="display:none" onchange="admHandleFiles(this.files)">
+        <label class="adm-label" style="margin-top:4px">Pilih slot untuk foto yang diupload</label>
+        <select class="adm-field" id="admUploadChapter">
+          <option value="cover">Foto Sampul</option>
+          <option value="pengantar">Pengantar</option>
+          <option value="bab1">Bab I</option><option value="bab2">Bab II</option>
+          <option value="bab3">Bab III</option><option value="bab4">Bab IV</option>
+          <option value="bab5">Bab V</option><option value="bab6">Bab VI</option>
+          <option value="bab7">Bab VII</option><option value="bab8">Bab VIII</option>
+          <option value="bab9">Bab IX</option><option value="bab10">Bab X</option>
+          <option value="penutup">Penutup</option>
+        </select>
+        <select class="adm-field" id="admUploadSlot">
+          <option value="0">Slot 1</option><option value="1">Slot 2</option><option value="2">Slot 3</option>
+        </select>
+        <div id="admUploadPreview" style="margin-top:4px"></div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Video YouTube</div>
+        <label class="adm-label">Pilih Bab</label>
+        <select class="adm-field" id="admVideoChapter">
+          <option value="bab2">Bab II — Vonis</option>
+          <option value="bab3">Bab III — Intubasi Lala</option>
+          <option value="bab4">Bab IV — Rutinitas</option>
+          <option value="bab6">Bab VI — Dukungan</option>
+          <option value="bab8">Bab VIII — Sukacita</option>
+          <option value="bab9">Bab IX — Jojo Intubasi</option>
+          <option value="bab10">Bab X — Transplantasi</option>
+          <option value="penutup">Penutup</option>
+        </select>
+        <label class="adm-label">Link YouTube</label>
+        <input class="adm-field" id="admVideoUrl" placeholder="https://youtu.be/XXXXXXXXXXX">
+        <div class="adm-btn-row">
+          <button class="adm-btn primary" onclick="admSetVideo()">▶ Pasang Video</button>
+          <button class="adm-btn secondary" onclick="admRemoveVideo()">✕ Hapus</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: TAMPILAN ═══ -->
+    <div class="adm-pane" id="pane-tampilan">
+      <div class="adm-section">
+        <div class="adm-section-title">Ukuran Font Isi</div>
+        <label class="adm-label">Ukuran teks paragraf (px): <span id="admFontSizeVal">17</span>px</label>
+        <input type="range" class="adm-field" id="admFontSize" min="13" max="22" value="17" step="1" oninput="admApplyFontSize(this.value)" style="padding:4px 0;background:transparent;border:none;accent-color:var(--gold)">
+        <label class="adm-label" style="margin-top:4px">Tinggi baris: <span id="admLineHVal">1.85</span></label>
+        <input type="range" class="adm-field" id="admLineH" min="1.4" max="2.2" value="1.85" step="0.05" oninput="admApplyLineH(this.value)" style="padding:4px 0;background:transparent;border:none;accent-color:var(--gold)">
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Lebar Konten</div>
+        <label class="adm-label">Max-width prose (px): <span id="admWidthVal">680</span>px</label>
+        <input type="range" class="adm-field" id="admWidth" min="540" max="860" value="680" step="20" oninput="admApplyWidth(this.value)" style="padding:4px 0;background:transparent;border:none;accent-color:var(--gold)">
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Tampilan & Fitur</div>
+        <div class="adm-toggle-row">
+          <div class="adm-toggle-info"><div class="adm-toggle-label">Progress Bar</div><div class="adm-toggle-sub">Garis tipis di atas saat membaca</div></div>
+          <label class="adm-switch"><input type="checkbox" checked id="togProgressBar" onchange="admToggle('progress-bar',this.checked)"><span class="adm-switch-slider"></span></label>
+        </div>
+        <div class="adm-toggle-row">
+          <div class="adm-toggle-info"><div class="adm-toggle-label">Animasi Fade-in Bab</div><div class="adm-toggle-sub">Bab muncul perlahan saat scroll</div></div>
+          <label class="adm-switch"><input type="checkbox" checked id="togFadeIn" onchange="admToggleFade(this.checked)"><span class="adm-switch-slider"></span></label>
+        </div>
+        <div class="adm-toggle-row">
+          <div class="adm-toggle-info"><div class="adm-toggle-label">Tombol FAB PDF</div><div class="adm-toggle-sub">Tombol PDF melayang di mobile</div></div>
+          <label class="adm-switch"><input type="checkbox" checked id="togFabPdf" onchange="admToggle('fabPdf',this.checked)"><span class="adm-switch-slider"></span></label>
+        </div>
+        <div class="adm-toggle-row">
+          <div class="adm-toggle-info"><div class="adm-toggle-label">Ornamen Bab</div><div class="adm-toggle-sub">Garis emas dekoratif antar bab</div></div>
+          <label class="adm-switch"><input type="checkbox" checked id="togOrnament" onchange="admToggleClass('.ornament',this.checked)"><span class="adm-switch-slider"></span></label>
+        </div>
+        <div class="adm-toggle-row">
+          <div class="adm-toggle-info"><div class="adm-toggle-label">Ayat Alkitab</div><div class="adm-toggle-sub">Kotak gelap dengan ayat di tiap bab</div></div>
+          <label class="adm-switch"><input type="checkbox" checked id="togScripture" onchange="admToggleClass('.scripture',this.checked)"><span class="adm-switch-slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: EKSPOR ═══ -->
+    <div class="adm-pane" id="pane-ekspor">
+      <div class="adm-section">
+        <div class="adm-section-title">Statistik Konten</div>
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="adm-stat-num" id="statBab">12</div><div class="adm-stat-lbl">Bab</div></div>
+          <div class="adm-stat"><div class="adm-stat-num" id="statFoto">0</div><div class="adm-stat-lbl">Foto Terpasang</div></div>
+          <div class="adm-stat"><div class="adm-stat-num" id="statVideo">0</div><div class="adm-stat-lbl">Video</div></div>
+          <div class="adm-stat"><div class="adm-stat-num" id="statKata">0</div><div class="adm-stat-lbl">Kata</div></div>
+        </div>
+        <button class="adm-btn secondary full" onclick="admRefreshStats()">↻ Perbarui Statistik</button>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Unduh PDF</div>
+        <div class="adm-info-box">PDF akan digenerate menggunakan fungsi cetak browser dengan layout A4 yang sudah dioptimalkan. <strong>Pastikan semua foto dan video sudah dipasang</strong> sebelum mengunduh.</div>
+        <div class="adm-btn-row" style="flex-direction:column">
+          <button class="adm-btn primary full" onclick="exportPDF()">📄 Unduh sebagai PDF</button>
+          <button class="adm-btn secondary full" onclick="admPrintPreview()">👁 Pratinjau Cetak</button>
+        </div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Simpan File HTML</div>
+        <div class="adm-info-box">Simpan seluruh buku (dengan foto URL dan video yang sudah terpasang) sebagai file HTML yang bisa dibagikan atau dibuka offline.</div>
+        <button class="adm-btn primary full" onclick="admDownloadHTML()">⬇ Unduh File HTML</button>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Salin Teks Semua Bab</div>
+        <div class="adm-field-row">
+          <button class="adm-btn secondary" onclick="admCopyAllText()">📋 Salin Semua Teks</button>
+          <button class="adm-btn secondary" onclick="admCopyChapter()">📋 Salin Bab Ini</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: PENGATURAN ═══ -->
+    <div class="adm-pane" id="pane-pengaturan">
+      <div class="adm-section">
+        <div class="adm-section-title">Ganti Password Admin</div>
+        <label class="adm-label">Password Saat Ini</label>
+        <input class="adm-field" type="password" id="admPwOld" placeholder="Password lama...">
+        <label class="adm-label">Password Baru</label>
+        <input class="adm-field" type="password" id="admPwNew" placeholder="Password baru...">
+        <label class="adm-label">Konfirmasi Password Baru</label>
+        <input class="adm-field" type="password" id="admPwConfirm" placeholder="Ulangi password baru...">
+        <div class="adm-btn-row">
+          <button class="adm-btn primary" onclick="admChangePw()">🔒 Ganti Password</button>
+        </div>
+        <div class="adm-login-err" id="admPwMsg" style="margin-top:8px"></div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Cara Membuka Admin Panel</div>
+        <div class="adm-info-box">
+          <strong>Ketuk/klik logo ✟ di cover sebanyak 5 kali berturut-turut</strong> untuk membuka dialog login admin. Password default: <strong>KasihSetia2024</strong><br><br>
+          Ganti password segera setelah pertama kali masuk untuk keamanan.
+        </div>
+      </div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">Reset &amp; Sesi</div>
+        <div class="adm-btn-row" style="flex-direction:column;gap:6px">
+          <button class="adm-btn secondary full" onclick="admLogout()">🚪 Keluar dari Admin</button>
+          <button class="adm-btn danger full" onclick="admResetAll()">⚠ Reset Semua Perubahan</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .adm-body -->
+</div><!-- .adm-panel -->
+
+<!-- Edit mode bar -->
+<div class="adm-edit-bar" id="admEditBar">
+  <div>
+    <div class="adm-edit-bar-label">✏ Mode Edit Aktif</div>
+    <div class="adm-edit-bar-hint">Klik teks mana saja untuk mengeditnya langsung</div>
+  </div>
+  <div class="adm-btn-row">
+    <button class="adm-btn secondary" onclick="admSaveEdits()">💾 Simpan</button>
+    <button class="adm-btn danger" onclick="admToggleEditMode(true)">✕ Selesai</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   ADMIN PANEL JAVASCRIPT
+══════════════════════════════════════════ */
+
+/* ─── Secret unlock: tap cover cross 5× ─── */
+let admTapCount = 0, admTapTimer = null;
+document.addEventListener('DOMContentLoaded', () => {
+  const cross = document.querySelector('.cover-cross');
+  if (cross) cross.addEventListener('click', () => {
+    admTapCount++;
+    clearTimeout(admTapTimer);
+    if (admTapCount >= 5) { admTapCount = 0; admShowLogin(); return; }
+    admTapTimer = setTimeout(() => { admTapCount = 0; }, 1800);
+  });
+  // restore saved content
+  const saved = localStorage.getItem('kds_content');
+  if (saved) {
+    try {
+      const c = document.getElementById('content');
+      if (c) { c.innerHTML = saved; showToast('Konten tersimpan dipulihkan', 2000); }
+    } catch(e) {}
+  }
+});
+
+let ADM_PW = localStorage.getItem('kds_adm_pw') || 'KasihSetia2024';
+let admLoggedIn = false;
+let admEditActive = false;
+const admChangeLog = [];
+
+/* ─── LOGIN ─── */
+function admShowLogin() {
+  document.getElementById('admLogin').classList.add('show');
+  setTimeout(() => { const i = document.getElementById('admPwInput'); if(i) i.focus(); }, 120);
+}
+function admCancelLogin() {
+  document.getElementById('admLogin').classList.remove('show');
+  document.getElementById('admPwInput').value = '';
+  document.getElementById('admLoginErr').textContent = '';
+}
+function admDoLogin() {
+  const pw = document.getElementById('admPwInput').value;
+  if (pw === ADM_PW) {
+    admLoggedIn = true;
+    document.getElementById('admLogin').classList.remove('show');
+    document.getElementById('admPwInput').value = '';
+    document.getElementById('admLoginErr').textContent = '';
+    document.getElementById('admPanel').classList.add('show');
+    document.getElementById('admOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    admRefreshStats();
+    showToast('✓ Selamat datang di Admin Panel');
+  } else {
+    document.getElementById('admLoginErr').textContent = 'Password salah. Coba lagi.';
+    document.getElementById('admPwInput').value = '';
+    document.getElementById('admPwInput').focus();
+  }
+}
+function admClosePanel() {
+  document.getElementById('admPanel').classList.remove('show');
+  document.getElementById('admOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function admLogout() {
+  admLoggedIn = false;
+  admEditActive = false;
+  admStopEditMode();
+  admClosePanel();
+  showToast('Keluar dari Admin Panel');
+}
+
+/* ─── TABS ─── */
+function admTab(el, pane) {
+  document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.adm-pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(pane).classList.add('active');
+}
+
+/* ══════════════════════════════════════════
+   EDIT MODE — INLINE CONTENTEDITABLE
+   Panel tetap terbuka, overlay tipis menandai elemen yg bisa diedit
+══════════════════════════════════════════ */
+
+// Selector semua elemen teks yang bisa diedit
+const EDITABLE_SEL = [
+  '.prose p',
+  '.prose',
+  '.chapter-title',
+  '.chapter-tagline',
+  '.pull-quote p',
+  '.narrative',
+  '.tl-title',
+  '.tl-text',
+  '.tl-date',
+  '.ms-label',
+  '.ms-date',
+  '.scripture p',
+  '.note',
+  '.chapter-num',
+  '.cover-desc',
+  '.footer-verse',
+  '.footer-title',
+  '.metanoia-box p',
+  '.metanoia-box h2',
+  '.section-title',
+  '.yt-cap',
+  '.toc-t'
+].join(',');
+
+function admStartEditMode() {
+  admEditActive = true;
+
+  // Buat panel tetap open, tapi geser ke kiri agar tidak blocking
+  const panel = document.getElementById('admPanel');
+  panel.style.right = '0';
+
+  // Tandai semua elemen teks sebagai editable
+  const targets = document.querySelectorAll(EDITABLE_SEL);
+  let count = 0;
+  targets.forEach(el => {
+    // Hindari elemen yang sudah berisi elemen interaktif (img, button, iframe, a)
+    if (el.querySelector('img, button, iframe, input, .photo-slot')) return;
+    // Hindari elemen yang sudah menjadi parent dari elemen editable lain
+    if (el.closest('[contenteditable="true"]')) return;
+    el.setAttribute('contenteditable', 'true');
+    el.classList.add('adm-editable');
+    el.addEventListener('input', admOnInput);
+    el.addEventListener('blur',  admOnBlur);
+    count++;
+  });
+
+  document.getElementById('admEditBar').classList.add('show');
+  document.getElementById('btnEditMode').innerHTML = '🟢 Mode Edit Aktif';
+  document.getElementById('admModeBadge').textContent = count + ' elemen dapat diedit';
+  admAppendLog('Edit mode aktif — ' + count + ' elemen siap diedit');
+  showToast('✏ Klik teks mana saja untuk mengedit langsung');
+}
+
+function admStopEditMode() {
+  admEditActive = false;
+  document.querySelectorAll('[contenteditable]').forEach(el => {
+    el.removeAttribute('contenteditable');
+    el.classList.remove('adm-editable');
+    el.removeEventListener('input', admOnInput);
+    el.removeEventListener('blur',  admOnBlur);
+  });
+  document.getElementById('admEditBar').classList.remove('show');
+  document.getElementById('btnEditMode').innerHTML = '✏️ Aktifkan Edit Teks';
+  document.getElementById('admModeBadge').textContent = 'Mode: Baca';
+}
+
+function admToggleEditMode(forceOff) {
+  if (forceOff === true || admEditActive) {
+    admStopEditMode();
+    showToast('Edit mode dinonaktifkan');
+  } else {
+    admStartEditMode();
+  }
+}
+
+function admOnInput(e) {
+  admAppendLog('Diedit: ' + (e.target.className.replace('adm-editable','').trim().split(' ')[0] || 'teks'));
+}
+function admOnBlur() {
+  // Auto-save ke localStorage setiap kali element kehilangan focus
+  try {
+    const c = document.getElementById('content');
+    if (c) localStorage.setItem('kds_content_draft', c.innerHTML);
+  } catch(e) {}
+}
+
+function admAppendLog(msg) {
+  const now = new Date().toLocaleTimeString('id-ID');
+  admChangeLog.unshift('[' + now + '] ' + msg);
+  if (admChangeLog.length > 30) admChangeLog.pop();
+  const logEl = document.getElementById('admEditLog');
+  if (logEl) logEl.textContent = admChangeLog.join('\n');
+}
+
+function admSaveEdits() {
+  try {
+    const c = document.getElementById('content');
+    if (c) {
+      localStorage.setItem('kds_content', c.innerHTML);
+      admAppendLog('✓ Disimpan ke localStorage');
+      showToast('✓ Perubahan disimpan — akan diingat saat dibuka lagi');
+    }
+  } catch(e) {
+    showToast('⚠ Gagal menyimpan: ' + e.message);
+  }
+}
+
+function admDiscardEdits() {
+  if (!confirm('Buang semua perubahan teks? Halaman akan dimuat ulang.')) return;
+  localStorage.removeItem('kds_content');
+  localStorage.removeItem('kds_content_draft');
+  location.reload();
+}
+
+/* ─── Edit Chapter (scroll + edit mode) ─── */
+function admEditChapter(id, label) {
+  const el = document.getElementById(id);
+  if (!el) { showToast('⚠ Bab tidak ditemukan'); return; }
+  // Scroll dulu, lalu aktifkan edit jika belum aktif
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  showToast('→ ' + label);
+  if (!admEditActive) {
+    setTimeout(() => admStartEditMode(), 700);
+  }
+  // Jangan tutup panel — biarkan terbuka agar bisa tetap kontrol
+}
+
+/* ─── Book info ─── */
+function admApplyBookInfo() {
+  const title = document.getElementById('admBookTitle').value.trim();
+  const desc  = document.getElementById('admBookDesc').value.trim();
+  const url   = document.getElementById('admSiteUrl').value.trim();
+  if (title) {
+    const navTitle = document.querySelector('.nav-title');
+    if (navTitle) navTitle.textContent = title;
+    const coverTitles = document.querySelectorAll('.cover-title');
+    if (coverTitles[0]) coverTitles[0].textContent = title.split(/\s+/)[0];
+    if (coverTitles[1]) coverTitles[1].textContent = title.split(/\s+/).slice(1).join(' ') || title;
+    document.title = title + ' — Sebuah Memoar Iman';
+    admAppendLog('Judul diubah: ' + title);
+  }
+  if (desc) {
+    const cd = document.querySelector('.cover-desc');
+    if (cd) cd.textContent = desc;
+  }
+  if (url) {
+    const qrCard = document.querySelector('.qr-card');
+    if (qrCard) qrCard.href = url;
+    const footerA = document.querySelector('.footer-site a');
+    if (footerA) { footerA.href = url; footerA.textContent = url.replace('https://','').replace(/\/$/,''); }
+    admAppendLog('URL site diubah: ' + url);
+  }
+  showToast('✓ Info buku diperbarui');
+}
+
+/* ══════════════════════════════════════════
+   MEDIA — FOTO
+══════════════════════════════════════════ */
+function admSetPhoto() {
+  const chapter = document.getElementById('admPhotoChapter').value;
+  const slotIdx = parseInt(document.getElementById('admPhotoSlot').value);
+  const url     = document.getElementById('admPhotoUrl').value.trim();
+  const caption = document.getElementById('admPhotoCaption').value.trim();
+  if (!url) { showToast('⚠ Masukkan URL foto terlebih dahulu'); return; }
+  const slot = admGetSlot(chapter, slotIdx);
+  if (!slot) { showToast('⚠ Slot tidak ditemukan di bab ini'); return; }
+  admFillPhotoSlot(slot, url, caption || admGetSlotLabel(slot));
+  document.getElementById('admPhotoUrl').value = '';
+  document.getElementById('admPhotoCaption').value = '';
+  showToast('✓ Foto dipasang');
+  admRefreshStats();
+}
+
+function admGetSlot(chapter, slotIdx) {
+  if (chapter === 'cover') return document.querySelector('.cover-photo-area');
+  const section = document.querySelector('#' + chapter);
+  if (!section) return null;
+  const slots = section.querySelectorAll('.photo-slot');
+  return slots[slotIdx] || null;
+}
+
+function admGetSlotLabel(slot) {
+  const t = slot.querySelector('.ph-text');
+  return t ? t.textContent : 'Foto';
+}
+
+function admFillPhotoSlot(slot, url, label) {
+  slot.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = url; img.alt = label;
+  img.onerror = () => { slot.innerHTML = '<div class="ph-icon">⚠️</div><div class="ph-text" style="color:#E07070">Gambar gagal dimuat. Klik untuk coba lagi.</div>'; slot.onclick = () => addPhoto(slot, label); };
+  img.onload = () => admRefreshStats();
+  const ov = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
+  const cp = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
+  slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
+  slot.style.border = '1px solid rgba(201,169,110,.45)';
+  slot.onclick = () => addPhoto(slot, label);
+  admAppendLog('Foto dipasang: ' + label);
+}
+
+/* ─── File upload ─── */
+function admDragOver(e)  { e.preventDefault(); e.currentTarget.classList.add('dragover'); }
+function admDragLeave(e) { e.currentTarget.classList.remove('dragover'); }
+function admDrop(e) {
+  e.preventDefault(); e.currentTarget.classList.remove('dragover');
+  admHandleFiles(e.dataTransfer.files);
+}
+function admHandleFiles(files) {
+  if (!files || !files.length) return;
+  const chapter  = document.getElementById('admUploadChapter').value;
+  const slotIdx  = parseInt(document.getElementById('admUploadSlot').value);
+  const preview  = document.getElementById('admUploadPreview');
+
+  Array.from(files).slice(0, 3).forEach((file, i) => {
+    if (!file.type.startsWith('image/')) { showToast('⚠ Hanya file gambar'); return; }
+    if (file.size > 8 * 1024 * 1024) { showToast('⚠ File terlalu besar (maks 8MB)'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const url = ev.target.result;
+      const idx = slotIdx + i;
+      const slot = admGetSlot(chapter, idx);
+      if (slot) admFillPhotoSlot(slot, url, file.name.replace(/\.[^.]+$/, ''));
+      // Preview card
+      const card = document.createElement('div');
+      card.className = 'adm-media-card';
+      card.innerHTML = '<div class="adm-media-thumb"><img src="' + url + '" alt="' + file.name + '"></div>'
+        + '<div style="font-family:Lora,serif;font-size:12px;color:rgba(201,169,110,.6)">✓ ' + file.name + '</div>';
+      preview.insertBefore(card, preview.firstChild);
+      showToast('✓ ' + file.name + ' dipasang');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ══════════════════════════════════════════
+   MEDIA — VIDEO
+══════════════════════════════════════════ */
+function admSetVideo() {
+  const chapter = document.getElementById('admVideoChapter').value;
+  const url     = document.getElementById('admVideoUrl').value.trim();
+  if (!url) { showToast('⚠ Masukkan link YouTube'); return; }
+  const m = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if (!m) { showToast('⚠ Link YouTube tidak valid'); return; }
+  const section = document.querySelector('#' + chapter);
+  if (!section) { showToast('⚠ Bab tidak ditemukan'); return; }
+  const wrap = section.querySelector('.yt-wrap');
+  if (!wrap) { showToast('⚠ Slot video tidak ada di bab ini'); return; }
+
+  const existIframe = wrap.querySelector('iframe');
+  if (existIframe) {
+    existIframe.src = 'https://www.youtube.com/embed/' + m[1] + '?rel=0';
+  } else {
+    const ph = wrap.querySelector('.yt-ph');
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + m[1] + '?rel=0';
+    iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'width:100%;border:none;aspect-ratio:16/9;display:block;';
+    if (ph) ph.replaceWith(iframe); else wrap.insertBefore(iframe, wrap.querySelector('.yt-cap'));
+  }
+  document.getElementById('admVideoUrl').value = '';
+  admAppendLog('Video dipasang di bab ' + chapter);
+  showToast('✓ Video dipasang');
+  admRefreshStats();
+}
+
+function admRemoveVideo() {
+  const chapter = document.getElementById('admVideoChapter').value;
+  const section = document.querySelector('#' + chapter);
+  if (!section) return;
+  const wrap = section.querySelector('.yt-wrap');
+  if (!wrap) return;
+  const iframe = wrap.querySelector('iframe');
+  if (iframe) {
+    const ph = document.createElement('div'); ph.className = 'yt-ph';
+    ph.innerHTML = '<div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div>';
+    ph.onclick = () => addVideo(ph);
+    iframe.replaceWith(ph);
+    showToast('✓ Video dihapus');
+    admRefreshStats();
+  } else { showToast('Tidak ada video di bab ini'); }
+}
+
+/* ══════════════════════════════════════════
+   TAMPILAN
+══════════════════════════════════════════ */
+function admApplyFontSize(v) {
+  document.getElementById('admFontSizeVal').textContent = v;
+  document.querySelectorAll('.prose').forEach(el => el.style.fontSize = v + 'px');
+}
+function admApplyLineH(v) {
+  document.getElementById('admLineHVal').textContent = parseFloat(v).toFixed(2);
+  document.querySelectorAll('.prose').forEach(el => el.style.lineHeight = v);
+}
+function admApplyWidth(v) {
+  document.getElementById('admWidthVal').textContent = v;
+  const maxW = v + 'px';
+  const main = document.querySelector('main');
+  if (main) main.style.maxWidth = maxW;
+  document.querySelectorAll('.toc-section,.metanoia-intro').forEach(el => el.style.maxWidth = maxW);
+}
+function admToggle(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = show ? '' : 'none';
+}
+function admToggleFade(on) {
+  document.querySelectorAll('.fade-in').forEach(el => {
+    if (on) { el.classList.add('visible'); }
+    else { el.style.opacity = '1'; el.style.transform = 'none'; }
+  });
+}
+function admToggleClass(selector, show) {
+  document.querySelectorAll(selector).forEach(el => el.style.display = show ? '' : 'none');
+}
+
+/* ══════════════════════════════════════════
+   STATS & EXPORT
+══════════════════════════════════════════ */
+function admRefreshStats() {
+  const photos = document.querySelectorAll('.photo-slot img, .cover-photo-area img').length;
+  const videos = document.querySelectorAll('.yt-wrap iframe').length;
+  const main   = document.querySelector('main');
+  const words  = main ? main.innerText.split(/\s+/).filter(w => w.length > 1).length : 0;
+  const s = v => document.getElementById(v);
+  if(s('statFoto'))  s('statFoto').textContent  = photos;
+  if(s('statVideo')) s('statVideo').textContent  = videos;
+  if(s('statKata'))  s('statKata').textContent   = words > 999 ? (words/1000).toFixed(1)+'k' : words;
+}
+
+function admDownloadHTML() {
+  // Stop edit mode first to remove contenteditable attrs from saved copy
+  const wasEditing = admEditActive;
+  if (wasEditing) admStopEditMode();
+
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+  if (wasEditing) setTimeout(admStartEditMode, 100);
+
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kasih_dan_setia_buku.html';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast('✓ File HTML diunduh');
+  admAppendLog('HTML diunduh');
+}
+
+function admPrintPreview() {
+  if (admEditActive) admStopEditMode();
+  showToast('Membuka pratinjau cetak...');
+  setTimeout(() => window.print(), 400);
+}
+
+function admCopyAllText() {
+  const main = document.querySelector('main');
+  if (!main) return;
+  navigator.clipboard.writeText(main.innerText)
+    .then(() => showToast('✓ Semua teks disalin ke clipboard'))
+    .catch(() => showToast('⚠ Tidak dapat menyalin — coba manual'));
+}
+
+/* ══════════════════════════════════════════
+   PASSWORD
+══════════════════════════════════════════ */
+function admChangePw() {
+  const old   = document.getElementById('admPwOld').value;
+  const nw    = document.getElementById('admPwNew').value;
+  const conf  = document.getElementById('admPwConfirm').value;
+  const msg   = document.getElementById('admPwMsg');
+  const ok    = s => { msg.textContent = s; msg.style.color = '#7EC87E'; };
+  const err   = s => { msg.textContent = s; msg.style.color = '#E07070'; };
+
+  if (old !== ADM_PW)     { err('Password lama salah'); return; }
+  if (nw.length < 6)      { err('Password baru minimal 6 karakter'); return; }
+  if (nw !== conf)        { err('Konfirmasi tidak cocok'); return; }
+
+  ADM_PW = nw;
+  localStorage.setItem('kds_adm_pw', nw);
+  ['admPwOld','admPwNew','admPwConfirm'].forEach(id => document.getElementById(id).value = '');
+  ok('✓ Password berhasil diganti');
+  setTimeout(() => msg.textContent = '', 3500);
+  admAppendLog('Password admin diubah');
+}
+
+function admResetAll() {
+  if (!confirm('Reset semua teks yang diedit? Halaman akan dimuat ulang dan semua perubahan teks hilang.')) return;
+  localStorage.removeItem('kds_content');
+  localStorage.removeItem('kds_content_draft');
+  location.reload();
+}
+
+</script>
+</body>
+</html>
