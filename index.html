@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Kasih & Setia">
 <meta name="description" content="Kisah nyata perjalanan iman keluarga bersama Lala dan Jojo — dua pejuang ginjal, dalam kasih dan setia yang tak berkesudahan.">
-<title>Kasih dan Setia — Sebuah Memoar Iman</title>
+<title>Kasih dan Setia — Metanoia</title>
 
 <!-- PWA Manifest inline -->
 <script>
@@ -1082,21 +1082,115 @@ function showToast(msg, dur=2800){
 }
 
 /* ── ADD PHOTO ── */
-function addPhoto(slot, label){
-  const url = window.prompt('Tempel URL foto untuk "'+label+'":\n\nContoh:\nhttps://drive.google.com/uc?id=XXXX\nhttps://i.imgur.com/XXXX.jpg');
-  if(!url||!url.trim()) return;
-  const existing = slot.querySelector('img');
-  if(existing){ existing.src=url.trim(); showToast('Foto diperbarui ✓'); return; }
-  slot.innerHTML='';
-  const img = document.createElement('img');
-  img.src = url.trim(); img.alt = label;
-  img.onerror=()=>{ slot.innerHTML='<div class="ph-icon">⚠️</div><div class="ph-text" style="color:#8B3A3A">Gambar gagal dimuat. Klik untuk coba lagi.</div>'; slot.onclick=()=>addPhoto(slot,label); };
-  img.onload=()=>showToast('Foto berhasil ditambahkan ✓');
-  const ov = document.createElement('div'); ov.className='ph-overlay'; ov.innerHTML='<span>Ganti Foto</span>';
-  const cp = document.createElement('div'); cp.className='ph-caption'; cp.textContent=label;
-  slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
-  slot.style.border='1px solid rgba(201,169,110,.5)';
-  slot.onclick=()=>addPhoto(slot,label);
+/* ══════════════════════════════════════════
+   GOOGLE DRIVE URL CONVERTER
+   Mendukung semua format link Google Drive
+══════════════════════════════════════════ */
+function gdriveToDirectUrl(url) {
+  if (!url) return url;
+  url = url.trim();
+
+  // Format 1: /file/d/FILE_ID/view  atau  /file/d/FILE_ID/preview
+  const m1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]{10,})/);
+  if (m1) return 'https://drive.google.com/uc?export=view&id=' + m1[1];
+
+  // Format 2: ?id=FILE_ID  (uc?id=xxx atau open?id=xxx)
+  const m2 = url.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+  if (m2) return 'https://drive.google.com/uc?export=view&id=' + m2[1];
+
+  // Format 3: /d/FILE_ID (sharing links)
+  const m3 = url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+  if (m3) return 'https://drive.google.com/uc?export=view&id=' + m3[1];
+
+  // Format 4: drive.google.com/thumbnail
+  const m4 = url.match(/drive\.google\.com\/thumbnail\?id=([a-zA-Z0-9_-]{10,})/);
+  if (m4) return 'https://drive.google.com/uc?export=view&id=' + m4[1];
+
+  // Bukan Google Drive — kembalikan apa adanya
+  return url;
+}
+
+function extractDriveId(url) {
+  const m = url.match(/\/file\/d\/([a-zA-Z0-9_-]{10,})|[?&]id=([a-zA-Z0-9_-]{10,})|\/d\/([a-zA-Z0-9_-]{10,})/);
+  if (m) return m[1] || m[2] || m[3];
+  return null;
+}
+
+// Proxy fallback list untuk Google Drive (jika uc?export=view diblokir CORS)
+function getDriveProxies(fileId) {
+  return [
+    'https://drive.google.com/uc?export=view&id=' + fileId,
+    'https://drive.google.com/uc?export=download&id=' + fileId,
+    'https://lh3.googleusercontent.com/d/' + fileId,
+    'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w1200',
+  ];
+}
+
+function loadImageWithFallback(img, urlOrId, isDriveId, label, slot, onSuccess) {
+  const urls = isDriveId ? getDriveProxies(urlOrId) : [gdriveToDirectUrl(urlOrId)];
+  let idx = 0;
+
+  function tryNext() {
+    if (idx >= urls.length) {
+      // Semua gagal — tampilkan pesan error
+      slot.innerHTML =
+        '<div class="ph-icon">⚠️</div>' +
+        '<div class="ph-text" style="color:#E07070;font-size:11px;padding:0 8px">Foto tidak dapat dimuat.<br>Pastikan file Google Drive sudah di-share publik ("Anyone with link").<br><br>Klik untuk coba lagi.</div>';
+      slot.onclick = () => addPhoto(slot, label);
+      showToast('⚠ Foto gagal dimuat — cek pengaturan share Drive');
+      return;
+    }
+    img.src = urls[idx];
+    idx++;
+  }
+
+  img.onerror = tryNext;
+  img.onload = () => {
+    if (onSuccess) onSuccess();
+    showToast('✓ Foto berhasil dipasang');
+  };
+
+  tryNext();
+}
+
+function addPhoto(slot, label) {
+  const url = window.prompt(
+    'Tempel link foto untuk "' + label + '":\n\n' +
+    '\u2713 Google Drive: https://drive.google.com/file/d/FILE_ID/view\n' +
+    '\u2713 Google Drive: https://drive.google.com/open?id=FILE_ID\n' +
+    '\u2713 URL langsung: https://i.imgur.com/xxx.jpg\n\n' +
+    '\u26a0 Pastikan Drive sudah diset "Anyone with the link"'
+  );
+  if (!url || !url.trim()) return;
+
+  const cleanUrl = url.trim();
+  const driveId  = extractDriveId(cleanUrl);
+  const directUrl = gdriveToDirectUrl(cleanUrl);
+
+  // Kosongkan slot, siapkan elemen
+  slot.innerHTML = '';
+
+  // Loading state
+  slot.innerHTML = '<div class="ph-icon" style="animation:pulse 1s infinite">⏳</div><div class="ph-text">Memuat foto...</div>';
+
+  setTimeout(() => {
+    slot.innerHTML = '';
+    const img = document.createElement('img');
+    img.alt   = label;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px;display:block';
+
+    const ov  = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
+    const cp  = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
+
+    slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
+    slot.style.border = '1px solid rgba(201,169,110,.5)';
+    slot.onclick = () => addPhoto(slot, label);
+
+    loadImageWithFallback(img, driveId || cleanUrl, !!driveId, label, slot, () => {
+      // simpan url sukses sebagai data attr
+      slot.dataset.imgUrl = img.src;
+    });
+  }, 50);
 }
 
 /* ── ADD VIDEO ── */
@@ -1301,8 +1395,12 @@ if('serviceWorker' in navigator){
           <option value="1">Slot 2 (kedua)</option>
           <option value="2">Slot 3 (ketiga)</option>
         </select>
-        <label class="adm-label">URL Foto</label>
-        <input class="adm-field" id="admPhotoUrl" placeholder="https://i.imgur.com/... atau Google Drive URL">
+        <label class="adm-label">Link Foto (Google Drive atau URL langsung)</label>
+        <input class="adm-field" id="admPhotoUrl" placeholder="https://drive.google.com/file/d/FILE_ID/view">
+        <div style="font-family:Cormorant Garamond,serif;font-size:11px;color:rgba(201,169,110,0.38);margin:-6px 0 10px;line-height:1.5">
+          ✓ Google Drive · Imgur · URL .jpg/.png langsung<br>
+          ⚠ Pastikan Drive sudah diset <strong style="color:rgba(201,169,110,0.55)">"Anyone with the link"</strong>
+        </div>
         <label class="adm-label">Keterangan Foto (opsional)</label>
         <input class="adm-field" id="admPhotoCaption" placeholder="Keterangan singkat...">
         <div class="adm-btn-row">
@@ -1773,17 +1871,29 @@ function admGetSlotLabel(slot) {
 }
 
 function admFillPhotoSlot(slot, url, label) {
-  slot.innerHTML = '';
-  const img = document.createElement('img');
-  img.src = url; img.alt = label;
-  img.onerror = () => { slot.innerHTML = '<div class="ph-icon">⚠️</div><div class="ph-text" style="color:#E07070">Gambar gagal dimuat. Klik untuk coba lagi.</div>'; slot.onclick = () => addPhoto(slot, label); };
-  img.onload = () => admRefreshStats();
-  const ov = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
-  const cp = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
-  slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
-  slot.style.border = '1px solid rgba(201,169,110,.45)';
-  slot.onclick = () => addPhoto(slot, label);
-  admAppendLog('Foto dipasang: ' + label);
+  slot.innerHTML = '<div class="ph-icon" style="opacity:.5">⏳</div><div class="ph-text">Memuat...</div>';
+
+  const driveId  = extractDriveId(url);
+  const cleanUrl = url.trim();
+
+  setTimeout(() => {
+    slot.innerHTML = '';
+    const img = document.createElement('img');
+    img.alt   = label;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px;display:block';
+
+    const ov = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
+    const cp = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
+
+    slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
+    slot.style.border = '1px solid rgba(201,169,110,.45)';
+    slot.onclick = () => addPhoto(slot, label);
+
+    loadImageWithFallback(img, driveId || cleanUrl, !!driveId, label, slot, () => {
+      admRefreshStats();
+      admAppendLog('✓ Foto dipasang: ' + label);
+    });
+  }, 50);
 }
 
 /* ─── File upload ─── */
