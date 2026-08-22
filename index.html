@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Kasih & Setia">
 <meta name="description" content="Kisah nyata perjalanan iman keluarga bersama Lala dan Jojo — dua pejuang ginjal, dalam kasih dan setia yang tak berkesudahan.">
-<title>Kasih dan Setia — Metanoia</title>
+<title>Kasih dan Setia — Sebuah Memoar Iman</title>
 
 <!-- PWA Manifest inline -->
 <script>
@@ -272,7 +272,10 @@ body {
   transition:border-color .3s;
 }
 .cover-photo-area:hover{border-color:rgba(201,169,110,.6)}
-.cover-photo-area img{width:100%;height:100%;object-fit:cover}
+.cover-photo-area.has-photo .cover-ph-icon,
+.cover-photo-area.has-photo .cover-ph-text{display:none}
+.cover-photo-area.has-photo{border-color:rgba(201,169,110,.3)}
+.cover-photo-area img{width:100%;height:100%;object-fit:cover;display:block;border-radius:9px}
 .cover-ph-icon{font-size:28px;opacity:.3}
 .cover-ph-text{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);opacity:.5}
 .cover-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,4vw,18px);color:#C8B99A;max-width:420px;line-height:1.7;margin:0 auto 32px}
@@ -370,15 +373,61 @@ main{max-width:var(--max-prose);margin:0 auto;padding:0 20px 80px}
 
 /* ── PHOTO GRID ── */
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:28px 0}
-.photo-slot{border:1px dashed rgba(201,169,110,.4);border-radius:10px;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,var(--parchment),#e8dcc8);min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;transition:border-color .25s,box-shadow .25s;-webkit-tap-highlight-color:transparent}
+.photo-slot{
+  border:1px dashed rgba(201,169,110,.4);
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--parchment),#e8dcc8);
+  height:160px;           /* tinggi tetap agar foto mengisi konsisten */
+  display:block;          /* bukan flex — agar img absolute bisa fill penuh */
+  position:relative;      /* anchor untuk semua absolute children */
+  transition:border-color .25s,box-shadow .25s;
+  -webkit-tap-highlight-color:transparent;
+}
 .photo-slot:hover,.photo-slot:active{border-color:var(--gold);box-shadow:0 4px 14px var(--shadow)}
-.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px}
-.ph-overlay{position:absolute;inset:0;background:rgba(44,24,16,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:9px}
+
+/* Placeholder state (sebelum ada foto) */
+.photo-slot .ph-placeholder{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;pointer-events:none;
+}
+.photo-slot.has-photo .ph-placeholder{display:none} /* hilang setelah foto dipasang */
+
+/* Gambar: isi penuh frame */
+.photo-slot img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:9px;
+  display:block;
+}
+
+/* Overlay "Ganti Foto" muncul saat hover */
+.ph-overlay{
+  position:absolute;inset:0;
+  background:rgba(44,24,16,.5);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s;
+  border-radius:9px;z-index:2;
+}
 .photo-slot:hover .ph-overlay{opacity:1}
 .ph-overlay span{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase}
+
+/* Caption di bawah foto */
+.ph-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  font-family:'Cormorant Garamond',serif;font-size:11px;
+  color:var(--brown-light);font-style:italic;
+  padding:5px 10px;text-align:center;
+  background:rgba(250,247,242,.88);
+  border-top:1px solid rgba(201,169,110,.2);
+}
+
+/* Placeholder icons (hanya tampil sebelum foto) */
 .ph-icon{font-size:26px;opacity:.3}
 .ph-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--brown-light);text-align:center;padding:0 10px;line-height:1.35}
-.ph-caption{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--brown-light);font-style:italic;padding:6px 10px;border-top:1px solid rgba(201,169,110,.2);width:100%;position:absolute;bottom:0;background:rgba(250,247,242,.92);text-align:center}
 
 /* ── YOUTUBE EMBED ── */
 .yt-wrap{margin:28px 0;background:linear-gradient(135deg,var(--warm-white),var(--parchment));border:1px solid rgba(201,169,110,.35);border-radius:12px;overflow:hidden;box-shadow:0 3px 16px var(--shadow)}
@@ -766,8 +815,8 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <p class="prose">Ini adalah kisah keluarga kami. Tentang <strong>Lala</strong> dan <strong>Jojo</strong> — dua anak kami yang berjuang dengan seluruh kekuatan kecil mereka. Tentang iman yang diuji, diperdalam, dan pada akhirnya dimurnikan. Tentang kasih yang nyata, dan setia yang tidak pernah habis.</p>
   <p class="prose">Kami menuliskan ini bukan karena kami adalah keluarga yang luar biasa. Kami hanyalah keluarga biasa yang menghadapi hal-hal yang luar biasa berat — dan menemukan bahwa di dalamnya, ada tangan Tuhan yang tidak pernah melepaskan.</p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Foto Keluarga')"><div class="ph-icon">📷</div><div class="ph-text">Foto Keluarga</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala dan Jojo')"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Keluarga')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Foto Keluarga</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala dan Jojo')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
 </section>
 
@@ -785,9 +834,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">10 Februari 2020</div><div class="tl-title">Second opinion ke Kuala Lumpur</div><div class="tl-text">Subang Jaya Hospital, bersama dr. Indon Lajin. Diagnosa sama — CKD end stage.</div></div>
   </div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'RS Mitra Barat Desember 2019')"><div class="ph-icon">📷</div><div class="ph-text">RS Mitra Barat</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Evakuasi dengan tronton')"><div class="ph-icon">📷</div><div class="ph-text">Evakuasi tronton</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Kuala Lumpur Subang Jaya Hospital')"><div class="ph-icon">📷</div><div class="ph-text">Kuala Lumpur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'RS Mitra Barat Desember 2019')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">RS Mitra Barat</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Evakuasi dengan tronton')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Evakuasi tronton</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Kuala Lumpur Subang Jaya Hospital')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Kuala Lumpur</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
 </section>
 
@@ -803,8 +852,8 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <div class="pull-quote"><p>Banyak potongan perilaku Lala yang kuabaikan; sulit tidur, mudah lelah, mual dan susah makan, bau mulut karena kandungan ureum. Oh Tuhan... semua ini salahku.</p></div>
   <p class="prose">Masih terduduk di bangku yang sama, aku masih berharap ini adalah kesalahan — semua hanyalah mimpi buruk. <strong>Hati kami kacau.</strong> Dan dalam kegelisahan itu, pikiran-pikiran itu berputar tak henti: <em>Apakah ini kesalahanku? Apakah Tuhan sedang menghukumku?</em></p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Saat di klinik menerima vonis')"><div class="ph-icon">📷</div><div class="ph-text">Momen vonis</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala saat didiagnosis')"><div class="ph-icon">📷</div><div class="ph-text">Lala saat itu</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Saat di klinik menerima vonis')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Momen vonis</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto Lala saat didiagnosis')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Lala saat itu</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="scripture"><p>"Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan."</p><cite>— Yeremia 29:11</cite></div>
   <div class="yt-wrap" data-label="Momen Vonis — Kisah Nyata Lala"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Momen Vonis — Kisah Nyata Lala</div></div>
@@ -821,9 +870,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <div class="pull-quote"><p>"Lala harus segera transplant, kasihan dia sangat menderita" — sepenggal kalimat yang terucap dari bibir istriku yang bergetar, sambil terus melihat Lala yang masih mendapatkan perawatan.</p></div>
   <p class="prose">Malam yang terasa sangat panjang. Bunyi alat medis saling bersahutan di ruang yang penuh sesak. Sungguh tidak terbayangkan — namun justru di sinilah kami merasakan belas kasih Tuhan yang nyata. Kondisi Lala mulai stabil. Lala dipindahkan ke PICU — kondisinya berangsur pulih.</p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Malam di IGD intubasi Lala')"><div class="ph-icon">📷</div><div class="ph-text">Malam di IGD</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Ruang PICU Lala')"><div class="ph-icon">📷</div><div class="ph-text">Ruang PICU</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Lala mulai pulih')"><div class="ph-icon">📷</div><div class="ph-text">Lala mulai pulih</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Malam di IGD intubasi Lala')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Malam di IGD</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Ruang PICU Lala')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Ruang PICU</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala mulai pulih')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Lala mulai pulih</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Lala: Malam Intubasi"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Lala: Malam Intubasi</div></div>
   <div class="scripture"><p>"Ia memberi kekuatan kepada yang lelah dan menambah semangat kepada yang tiada berdaya."</p><cite>— Yesaya 40:29</cite></div>
@@ -845,9 +894,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Hiburan Kecil</div><div class="tl-title">Nyanyi bersama, diunggah ke YouTube</div><div class="tl-text">Momen kecil yang menjadi obat hati keluarga.</div></div>
   </div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Lala HD pertama 23 April 2020')"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Lala di kursi dialisis')"><div class="ph-icon">📷</div><div class="ph-text">Kursi dialisis</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Nyanyi bersama Lala')"><div class="ph-icon">📷</div><div class="ph-text">Nyanyi bersama</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala HD pertama 23 April 2020')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Lala</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala di kursi dialisis')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Kursi dialisis</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Nyanyi bersama Lala')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Nyanyi bersama</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Lala Nyanyi — Video YouTube Keluarga"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Lala Nyanyi — Video YouTube Keluarga</div></div>
 </section>
@@ -868,9 +917,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">24 Desember 2021</div><div class="tl-title">Jojo menjalani stemcell</div><div class="tl-text">Harapan baru. 2 bulan pertama menunjukkan perbaikan yang menggembirakan.</div></div>
   </div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Ulang tahun Jojo Oktober 2021')"><div class="ph-icon">📷</div><div class="ph-text">Ulang tahun Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo biopsi RSCM Kencana')"><div class="ph-icon">📷</div><div class="ph-text">Jojo biopsi</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo dan Lala bersama 2021')"><div class="ph-icon">📷</div><div class="ph-text">Jojo &amp; Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Ulang tahun Jojo Oktober 2021')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Ulang tahun Jojo</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo biopsi RSCM Kencana')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo biopsi</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo dan Lala bersama 2021')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo &amp; Lala</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
 </section>
 
@@ -890,9 +939,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   </div>
   <div class="pull-quote"><p>Ada satu momen yang tidak akan pernah kulupakan: ketika dokter berkata "ginjalnya berfungsi", dan aku melihat senyum istrikku — senyum yang sudah lama sekali tidak kulihat sebersih itu.</p></div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Lala St Klara')"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Doa bersama sebelum karantina')"><div class="ph-icon">📷</div><div class="ph-text">Doa bersama</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Lala hari transplant 2 November 2021')"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Lala</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Lala St Klara')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Doa bersama sebelum karantina')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Doa bersama</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala hari transplant 2 November 2021')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Lala</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Transplantasi Lala — Karunia Kehidupan"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Transplantasi Lala — Karunia Kehidupan</div></div>
   <div class="scripture"><p>"Orang yang menabur dengan mencucurkan air mata, akan menuai dengan bersorak-sorai."</p><cite>— Mazmur 126:5</cite></div>
@@ -913,8 +962,8 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   </div>
   <div class="note"><strong>Catatan:</strong> Di titik ini, dua anak kami berada di kondisi kritis berbeda, di ruang berbeda. Namun justru di sinilah kami melihat kehadiran Tuhan paling nyata — melalui setiap orang yang datang membantu tanpa diminta.</div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo IGD RSCM Kencana 2022')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD 2022</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo HD pertama April 2022')"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo IGD RSCM Kencana 2022')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD 2022</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo HD pertama April 2022')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">HD pertama Jojo</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="scripture"><p>"Janganlah takut, sebab Aku menyertai engkau, janganlah bimbang, sebab Aku ini Allahmu; Aku akan meneguhkan, bahkan akan menolong engkau."</p><cite>— Yesaya 41:10</cite></div>
 </section>
@@ -929,9 +978,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <p class="prose"><em>30 April 2023</em> — Kakak Sisi meraih juara OSN IPA tingkat Kota Jakarta Timur dan melaju ke tingkat provinsi. Kebanggaan mengalir deras. Ada sukacita yang nyata dan tidak dapat disembunyikan.</p>
   <p class="prose">Namun November kembali membawa kekhawatiran. Kondisi Jojo menurun — hampir setiap malam ia membutuhkan oksigen karena saturasi yang terus merosot. Tabung oksigen menjadi teman setia malam kami. Kami tahu ini akan ada ujungnya, dan kami terus berdoa.</p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Sisi juara OSN April 2023')"><div class="ph-icon">📷</div><div class="ph-text">Sisi juara OSN</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo di rumah dengan oksigen 2023')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di rumah 2023</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Momen keluarga 2023')"><div class="ph-icon">📷</div><div class="ph-text">Momen keluarga</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Sisi juara OSN April 2023')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Sisi juara OSN</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo di rumah dengan oksigen 2023')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo di rumah 2023</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Momen keluarga 2023')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Momen keluarga</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Momen Keluarga 2023"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Momen Keluarga 2023</div></div>
 </section>
@@ -951,9 +1000,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <p class="prose">Proses intubasi dilakukan. Selang ventilator terpasang. Istriku menggenggam tangan Jojo sambil terus memanggil namanya. Aku berusaha menguatkan istriku — menghadapi peristiwa yang dulu pernah kami alami bersama Lala.</p>
   <p class="prose">Beberapa teman datang memberikan support. Romo berkenan hadir dan memberikan <em>sakramen perminyakan</em> sesaat sebelum Jojo dipindahkan ke PICU.</p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo di IGD 30 Desember 2023')"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Lala menunggu di depan IGD')"><div class="ph-icon">📷</div><div class="ph-text">Lala menunggu</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Jojo IGD')"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo di IGD 30 Desember 2023')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo di IGD</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala menunggu di depan IGD')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Lala menunggu</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Sakramen perminyakan Jojo IGD')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Sakramen perminyakan</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Jojo: Dari Intubasi hingga PICU"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Jojo: Dari Intubasi hingga PICU</div></div>
   <div class="scripture"><p>"Janganlah takut, sebab Aku menyertai engkau, janganlah bimbang, sebab Aku ini Allahmu; Aku akan meneguhkan, bahkan akan menolong engkau."</p><cite>— Yesaya 41:10</cite></div>
@@ -974,9 +1023,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   </div>
   <p class="prose">Dan pada akhirnya, <strong>kedua anak kami — Lala dan Jojo — berhasil menjalani transplantasi ginjal.</strong> Bukan kebetulan. Bukan keberuntungan. Ini adalah pemeliharaan Allah yang bekerja melalui tangan dokter, perawat, keluarga, dan sahabat yang mengasihi mereka.</p>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Misa Syukur Jojo Januari 2024')"><div class="ph-icon">📷</div><div class="ph-text">Misa Syukur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo hari transplant 26 Maret 2024')"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Jojo</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Jojo setelah transplant pemulihan')"><div class="ph-icon">📷</div><div class="ph-text">Jojo pemulihan</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Misa Syukur Jojo Januari 2024')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Misa Syukur</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo hari transplant 26 Maret 2024')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Hari transplant Jojo</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Jojo setelah transplant pemulihan')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Jojo pemulihan</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Transplantasi Jojo — 26 Maret 2024"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Video</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Transplantasi Jojo — 26 Maret 2024</div></div>
   <div class="scripture"><p>"Orang yang menabur dengan mencucurkan air mata, akan menuai dengan bersorak-sorai."</p><cite>— Mazmur 126:5</cite></div>
@@ -995,9 +1044,9 @@ select.adm-field option{background:#1a0e07;color:var(--gold-light)}
   <div class="narrative" style="text-align:left">Kepada semua yang pernah menemani kami — yang pernah duduk di ruang tunggu ICU, yang pernah membawakan makanan, yang pernah mengirimkan pesan singkat di tengah malam, yang pernah mendoakan nama Lala dan Jojo — <em>terima kasih</em>. Kasih kalian adalah cerminan kasih-Nya.</div>
   <div class="pull-quote"><p>Kamu tidak sendirian. Allah tidak melupakanmu. Kasih-Nya tidak berkesudahan, dan setia-Nya baru setiap pagi.</p><cite>— Ratapan 3:22-23</cite></div>
   <div class="photo-grid">
-    <div class="photo-slot" onclick="addPhoto(this,'Lala dan Jojo sehat 2024')"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo sehat</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Foto keluarga lengkap 2024')"><div class="ph-icon">📷</div><div class="ph-text">Keluarga lengkap</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
-    <div class="photo-slot" onclick="addPhoto(this,'Momen syukur keluarga')"><div class="ph-icon">📷</div><div class="ph-text">Momen syukur</div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Lala dan Jojo sehat 2024')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Lala &amp; Jojo sehat</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Foto keluarga lengkap 2024')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Keluarga lengkap</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
+    <div class="photo-slot" onclick="addPhoto(this,'Momen syukur keluarga')"><div class="ph-placeholder"><div class="ph-icon">📷</div><div class="ph-text">Momen syukur</div></div><div class="ph-overlay"><span>Ganti Foto</span></div></div>
   </div>
   <div class="yt-wrap" data-label="Metanoia — Kesaksian Lengkap Keluarga"><div class="yt-ph" onclick="addVideo(this)"><div class="yt-play">▶</div><div class="yt-lbl">Tonton Kesaksian Lengkap</div><div class="yt-hint">Klik untuk menambahkan link YouTube</div></div><div class="yt-cap">Metanoia — Kesaksian Lengkap Keluarga</div></div>
   <div class="scripture"><p>"Tak berkesudahan kasih setia TUHAN, tak habis-habisnya rahmat-Nya, selalu baru tiap pagi; besar kesetiaan-Mu!"</p><cite>— Ratapan 3:22-23</cite></div>
@@ -1132,12 +1181,21 @@ function loadImageWithFallback(img, urlOrId, isDriveId, label, slot, onSuccess) 
 
   function tryNext() {
     if (idx >= urls.length) {
-      // Semua gagal — tampilkan pesan error
-      slot.innerHTML =
+      // Semua fallback gagal — tampilkan pesan error tapi tetap bisa diklik ganti
+      slot.innerHTML = '';
+      slot.classList.remove('has-photo');
+      const ph = document.createElement('div');
+      ph.className = 'ph-placeholder';
+      ph.innerHTML =
         '<div class="ph-icon">⚠️</div>' +
-        '<div class="ph-text" style="color:#E07070;font-size:11px;padding:0 8px">Foto tidak dapat dimuat.<br>Pastikan file Google Drive sudah di-share publik ("Anyone with link").<br><br>Klik untuk coba lagi.</div>';
+        '<div class="ph-text" style="color:#E07070;font-size:11px;padding:0 12px;line-height:1.5">' +
+        'Foto gagal dimuat.<br>Pastikan Google Drive sudah di-share:<br>' +
+        '<strong style=\"color:#c07070\">"Anyone with the link"</strong><br><br>' +
+        'Klik untuk coba lagi.</div>';
+      const ov2 = document.createElement('div'); ov2.className='ph-overlay'; ov2.innerHTML='<span>Coba Lagi</span>';
+      slot.appendChild(ph); slot.appendChild(ov2);
       slot.onclick = () => addPhoto(slot, label);
-      showToast('⚠ Foto gagal dimuat — cek pengaturan share Drive');
+      showToast('\u26a0 Foto gagal dimuat \u2014 cek share setting Google Drive');
       return;
     }
     img.src = urls[idx];
@@ -1157,40 +1215,52 @@ function addPhoto(slot, label) {
   const url = window.prompt(
     'Tempel link foto untuk "' + label + '":\n\n' +
     '\u2713 Google Drive: https://drive.google.com/file/d/FILE_ID/view\n' +
-    '\u2713 Google Drive: https://drive.google.com/open?id=FILE_ID\n' +
     '\u2713 URL langsung: https://i.imgur.com/xxx.jpg\n\n' +
-    '\u26a0 Pastikan Drive sudah diset "Anyone with the link"'
+    '\u26a0 Pastikan Drive diset "Anyone with the link"'
   );
   if (!url || !url.trim()) return;
+  fillPhotoSlot(slot, url.trim(), label);
+}
 
-  const cleanUrl = url.trim();
-  const driveId  = extractDriveId(cleanUrl);
-  const directUrl = gdriveToDirectUrl(cleanUrl);
+/* Fungsi isi foto — dipakai addPhoto, admFillPhotoSlot, dan upload file */
+function fillPhotoSlot(slot, url, label) {
+  const driveId = extractDriveId(url);
 
-  // Kosongkan slot, siapkan elemen
+  // 1. Bersihkan SEMUA isi slot: placeholder, foto lama, caption lama
   slot.innerHTML = '';
+  // 2. Tandai slot sudah terisi (CSS akan sembunyikan placeholder via .has-photo)
+  slot.classList.add('has-photo');
+  slot.style.border = '1px solid rgba(201,169,110,.45)';
+  slot.onclick = () => addPhoto(slot, label);
 
-  // Loading state
-  slot.innerHTML = '<div class="ph-icon" style="animation:pulse 1s infinite">⏳</div><div class="ph-text">Memuat foto...</div>';
+  // 3. Buat img — CSS sheet sudah handle position:absolute;inset:0;object-fit:cover
+  const img = document.createElement('img');
+  img.alt = label;
 
-  setTimeout(() => {
-    slot.innerHTML = '';
-    const img = document.createElement('img');
-    img.alt   = label;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px;display:block';
+  // 4. Overlay "Ganti Foto" (hanya tampil saat hover)
+  const ov = document.createElement('div');
+  ov.className = 'ph-overlay';
+  ov.innerHTML = '<span>Ganti Foto</span>';
 
-    const ov  = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
-    const cp  = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
+  // 5. Caption nama foto
+  const cp = document.createElement('div');
+  cp.className = 'ph-caption';
+  cp.textContent = label;
 
-    slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
-    slot.style.border = '1px solid rgba(201,169,110,.5)';
-    slot.onclick = () => addPhoto(slot, label);
+  slot.appendChild(img);
+  slot.appendChild(ov);
+  slot.appendChild(cp);
 
-    loadImageWithFallback(img, driveId || cleanUrl, !!driveId, label, slot, () => {
-      // simpan url sukses sebagai data attr
-      slot.dataset.imgUrl = img.src;
-    });
-  }, 50);
+  // 6. Load gambar dengan fallback Drive
+  loadImageWithFallback(img, driveId || url, !!driveId, label, slot, () => {
+    slot.dataset.imgUrl = img.src;
+    if (typeof admRefreshStats === 'function') admRefreshStats();
+  });
+
+  // 7. Khusus cover: sembunyikan juga cover-ph-icon dan cover-ph-text
+  if (slot.id === 'coverPhoto' || slot.classList.contains('cover-photo-area')) {
+    slot.classList.add('has-photo');
+  }
 }
 
 /* ── ADD VIDEO ── */
@@ -1871,29 +1941,9 @@ function admGetSlotLabel(slot) {
 }
 
 function admFillPhotoSlot(slot, url, label) {
-  slot.innerHTML = '<div class="ph-icon" style="opacity:.5">⏳</div><div class="ph-text">Memuat...</div>';
-
-  const driveId  = extractDriveId(url);
-  const cleanUrl = url.trim();
-
-  setTimeout(() => {
-    slot.innerHTML = '';
-    const img = document.createElement('img');
-    img.alt   = label;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px;display:block';
-
-    const ov = document.createElement('div'); ov.className = 'ph-overlay'; ov.innerHTML = '<span>Ganti Foto</span>';
-    const cp = document.createElement('div'); cp.className = 'ph-caption'; cp.textContent = label;
-
-    slot.appendChild(img); slot.appendChild(ov); slot.appendChild(cp);
-    slot.style.border = '1px solid rgba(201,169,110,.45)';
-    slot.onclick = () => addPhoto(slot, label);
-
-    loadImageWithFallback(img, driveId || cleanUrl, !!driveId, label, slot, () => {
-      admRefreshStats();
-      admAppendLog('✓ Foto dipasang: ' + label);
-    });
-  }, 50);
+  // Delegasikan ke fillPhotoSlot yang sudah bersih
+  fillPhotoSlot(slot, url.trim(), label);
+  admAppendLog && admAppendLog('Foto dipasang: ' + label);
 }
 
 /* ─── File upload ─── */
